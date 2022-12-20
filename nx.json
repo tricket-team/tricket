@@ -41,5 +41,6 @@
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "web",
+  "plugins": ["@jnxplus/nx-boot-maven"]
 }

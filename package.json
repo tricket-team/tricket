@@ -2,7 +2,9 @@
   "name": "tricket",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "web:dev": "nx run web:serve"
+  },
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

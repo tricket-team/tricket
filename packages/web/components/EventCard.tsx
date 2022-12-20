@@ -12,8 +12,8 @@ const EventCard = () => {
       <div className="flex justify-between">
         {mockData.map((item: data, i: number) => {
           return (
-            <div className="my-6 flex flex-col gap-y-2 w-[210px]" key={i}>
-              <div className="bg-black w-[210px] h-[300px] rounded-md"></div>
+            <div className="my-6 flex flex-col gap-y-2 w-[230px]" key={i}>
+              <div className="bg-black w-[230px] h-[320px] rounded-md"></div>
               <p className="text-gray-400 text-sm">{item.date}</p>
               <p className="font-semibold text-lg">{item.title}</p>
               <div className="flex gap-x-1 items-center text-gray-400 text-sm">

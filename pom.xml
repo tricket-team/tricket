@@ -19,6 +19,6 @@
     </properties>
 
     <modules>
-    <module>packages/authentication-api</module></modules>
+    <module>packages/api-authentication</module><module>packages/api-authentication</module></modules>
 
 </project>

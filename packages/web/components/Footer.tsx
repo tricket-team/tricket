@@ -30,7 +30,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="w-full grid grid-cols-12">
+    <div className="w-full grid grid-cols-12 py-20">
       <div className="grid grid-cols-10 col-start-2 col-end-12 text-[#1AAD90]">
         {footerData.map((item: FooterType, i: number) => (
           <div className="col-span-2" key={i}>

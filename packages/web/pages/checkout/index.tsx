@@ -12,19 +12,44 @@ const Checkout = () => {
     <>
       <div className="grid grid-cols-12 mt-10">
         <div className="col-start-2 col-end-8 px-10">
-          <h2 className="font-semibold text-3xl">Order Summary</h2>
-          <div className="rounded-md bg-gray-100 w-full mt-4 mb-10">
-            <div className="flex flex-col py-5 px-10">
-              <div className="flex justify-between font-semibold">
-                <p>Title</p>
+          <h2 className="font-semibold text-3xl">Order Summary #6005148 </h2>
+          <div className="col-start-2 col-end-12 my-10 bg-gray-100 rounded-md w-full text-gray-800">
+            <div className="p-5 w-full grid grid-cols-9">
+              <div className="col-span-3 font-semibold text-lg">
+                <p>Ticket Type</p>
+              </div>
+              <div className="col-span-3 text-end font-semibold text-lg">
                 <p>Price</p>
+              </div>
+              <div className="col-span-3 text-end font-semibold text-lg">
                 <p>Qty.</p>
               </div>
-              <hr className="my-4"></hr>
-              <div className="flex justify-between">
-                <p>{mockOrder.title}</p>
-                <p>{mockOrder.price}</p>
-                <p>{mockOrder.quantity}</p>
+              <hr className="col-span-9 my-4"></hr>
+              <div className="flex justify-between items-start col-span-9 grid grid-cols-9 my-2">
+                <div className="col-span-3 font-medium">
+                  <p>{mockOrder.title}</p>
+                </div>
+                <div className="col-span-3 text-end font-medium">
+                  <p>{mockOrder.price}</p>
+                </div>
+                <div className="col-span-3 items-end text-end font-medium">
+                  {mockOrder.quantity}
+                </div>
+              </div>
+              <hr className="col-span-9 my-4"></hr>
+              <div className="col-span-7 text-end">
+                <p className="font-medium text-gray-400">Vat</p>
+              </div>
+              <div className="col-span-2 text-end">
+                <p className="font-medium text-gray-400">7%</p>
+              </div>
+              <div className="col-span-7 text-end">
+                <p className="font-medium text-xl">Total</p>
+              </div>
+              <div className="col-span-2 text-end">
+                <p className="font-medium text-xl">
+                  {mockOrder.price * mockOrder.quantity} THB
+                </p>
               </div>
             </div>
           </div>
@@ -120,7 +145,7 @@ const Checkout = () => {
             </button>
           </div>
         </div>
-        <div className="col-start-8 col-end-12 align-end rounded-md px-10">
+        <div className="col-start-8 col-end-12 align-end rounded-md mt-20 px-20">
           <Image
             src="https://scontent.fbkk31-1.fna.fbcdn.net/v/t39.30808-6/294815604_5222659704488338_2909628041657591105_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=e25c_dmcgSMAX9_vYy9&_nc_ht=scontent.fbkk31-1.fna&oh=00_AfBxu8VuB57M4voGQe3UZkOH1zN6zeIXCm7Sm5AmpFt-cA&oe=63A6CFB7"
             alt="gun_n_roses"

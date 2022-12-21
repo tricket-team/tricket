@@ -4,25 +4,29 @@ import Navbar from '../../components/NavBar';
 import { Menu } from '@headlessui/react';
 import { eventDetailDummy, TicketType } from '../../data';
 
+type Ticket = {
+  title: string;
+  price: string;
+  quantity: number[];
+};
+
 function Detail() {
-  const [ticketCount, setTicketCount] = useState([]);
-  const [ticketNumber, setTicketNumber] = useState([]);
+  // const [ticketNumber, setTicketNumber] = useState([]);
 
-  const ticketQuantity = (ticket: number) => {
-    for (let i = 0; i < ticket + 1; i++) {
-      ticketNumber.push(i);
-    }
-    return setTicketNumber;
-  };
+  // const ticketQuantity = (ticket: number) => {
+  //   for (let i = 0; i < ticket + 1; i++) {
+  //     ticketNumber.push(i);
+  //   }
+  //   return setTicketNumber;
+  // };
 
-  useState(() =>
-    eventDetailDummy.ticket.forEach((element) => {
-      ticketCount.push(element);
-      ticketQuantity(element.quantity);
-    })
-  );
+  // useState(() =>
+  //   eventDetailDummy.ticket.forEach((element) => {
+  //     ticketQuantity(element.quantity);
+  //   })
+  // );
 
-  useState(() => console.log(ticketCount));
+  const [newTicket, setNewTicket] = useState<Ticket[]>([]);
 
   return (
     <div className="grid grid-cols-12 mb-10">
@@ -105,29 +109,34 @@ function Detail() {
               <div className="col-span-3 text-end font-medium">
                 <p>{item.price}</p>
               </div>
-              <div className="col-span-3 text-end font-medium">
-                <Menu>
-                  <Menu.Button className="border border-white py-2 px-3 rounded">
-                    <div className="flex gap-x-2 items-center">
-                      <p>Select</p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </Menu.Button>
-                  {ticketNumber.map((item: number, i: number) => (
-                    <Menu.Items key={i}>{item}</Menu.Items>
-                  ))}
-                </Menu>
+              <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
+                <div className="col-start-4">
+                  <Menu>
+                    <Menu.Button className="border border-white py-2 px-3 rounded">
+                      <div className="flex gap-x-2 items-center">
+                        <p>Select</p>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </Menu.Button>
+                    <Menu.Items className="items-end">
+                      <p className="py-2 px-3 bg-white/20 text-center">0</p>
+                    </Menu.Items>
+                    <Menu.Items className="items-end">
+                      <p className="py-2 px-3 bg-white/20 text-center">1</p>
+                    </Menu.Items>
+                  </Menu>
+                </div>
               </div>
             </div>
           ))}

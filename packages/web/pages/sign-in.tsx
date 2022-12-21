@@ -1,25 +1,42 @@
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
-import Image from 'next/image';
+import React, { useState } from 'react';
+import { auth } from '../config/firebase';
+import {
+  signInWithCustomToken,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import Router from 'next/router';
+
 function Signin() {
-  const user = [
-    {
-      id: 1,
-      username: 'Natanon',
-      email: 'big123wer@gmail.com',
-      password: 'testtest',
-    },
-  ];
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
+
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
-  useEffect(() => {
-    console.log(email);
-  }, [email]);
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      Router.push('/');
+    }
+  });
+
+  const signIn = async () => {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const tokenResponse = await fetch('http://localhost:9000/sign-in', {
+      method: 'POST',
+      headers: {
+        Authorization: await userCredential.user.getIdToken(),
+      },
+    });
+    const token = await tokenResponse.text();
+    await signInWithCustomToken(auth, token);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-slate-100">
       <div className="w-auto py-10 rounded overflow-hidden shadow-lg">
@@ -101,6 +118,7 @@ function Signin() {
           <button
             style={{ height: 45 }}
             className="rounded-[16px] w-full bg-[#4EE191] hover:bg-opacity-70 transition"
+            onClick={signIn}
           >
             Login
           </button>

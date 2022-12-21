@@ -1,4 +1,4 @@
-package co.tricket.authenticationapi;
+package co.tricket.apiauthentication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

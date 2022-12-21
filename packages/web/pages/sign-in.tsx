@@ -38,19 +38,21 @@ function Signin() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-slate-100">
+    <div className="flex flex-col justify-center items-center h-screen bg-white">
       <div className="w-auto py-10 rounded overflow-hidden shadow-lg">
         <div className="px-6 py-4">
           <div className="flex flex-col gap-y-3 py-2">
             <div className="flex items-center justify-center">
-              <p className="text-4xl text-center bg-clip-text text-transparent bg-gradient-to-r from-lime-400 to-[#4EE191]">
+              <p className="text-4xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-lime-400 to-[#4EE191]">
                 Welcome to Tricket
               </p>
             </div>
             <div>
-              <label htmlFor="">Email</label>
+              <label htmlFor="" className="text-gray-800 font-semibold">
+                Email
+              </label>
               <input
-                className="border-2 w-full p-1 rounded-md"
+                className="border-2 w-full py-2 px-2 rounded-md"
                 type="email"
                 placeholder="Email"
                 onChange={(e) => {
@@ -60,9 +62,11 @@ function Signin() {
             </div>
 
             <div>
-              <label htmlFor="">Password</label>
+              <label htmlFor="" className="text-gray-800 font-semibold">
+                Password
+              </label>
               <div className="relative">
-                <div className="absolute top-1 right-1 flex items-center">
+                <div className="absolute top-3.5 right-2">
                   {passwordShown ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +74,7 @@ function Signin() {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-7 h-7 cursor-pointer"
+                      className="w-4 h-4 cursor-pointer"
                       onClick={togglePassword}
                     >
                       <path
@@ -91,7 +95,7 @@ function Signin() {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-7 h-7 cursor-pointer"
+                      className="w-4 h-4 cursor-pointer"
                       onClick={togglePassword}
                     >
                       <path
@@ -103,7 +107,7 @@ function Signin() {
                   )}
                 </div>
                 <input
-                  className="border-2 w-full p-1 rounded-md"
+                  className="border-2 w-full py-2 px-2 rounded-md"
                   type={passwordShown ? 'text' : 'password'}
                   placeholder="Password"
                   onChange={(e) => {
@@ -116,11 +120,10 @@ function Signin() {
         </div>
         <div className="flex justify-center px-6 pb-2 items-center">
           <button
-            style={{ height: 45 }}
-            className="rounded-[16px] w-full bg-[#4EE191] hover:bg-opacity-70 transition"
+            className="rounded w-full bg-[#4EE191] hover:bg-opacity-70 transition text-white py-3 font-semibold"
             onClick={signIn}
           >
-            Login
+            Sign in
           </button>
         </div>
         <div className="flex px-6 pb-2 items-center">
@@ -134,7 +137,7 @@ function Signin() {
             <div className="col-span-1"></div>
             <div className="col-span-1">
               <a href="">
-                <p className="text-green-500 flex justify-end">
+                <p className="text-green-500 flex gap-x-2 justify-end">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +167,7 @@ function Signin() {
               className="bg-black col-span-4 w-[100%]"
               style={{ height: 1 }}
             ></div>
-            <p className="col-span-2 mx-3 text-center	">or sign in with</p>
+            <p className="col-span-2 mx-3 text-center	">or</p>
             <div
               className="bg-black col-span-4 w-[100%]"
               style={{ height: 1 }}
@@ -173,7 +176,7 @@ function Signin() {
         </div>
 
         <div className="flex px-6 pb-2 items-center">
-          <button className="flex items-center justify-center w-full border-2 rounded-[8px] gap-2 border-[#4EE191] hover:scale-[102%] transition">
+          <button className="bg-gray-200 flex items-center justify-center w-full border-2 rounded gap-4 hover:scale-[102%] transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -198,7 +201,7 @@ function Signin() {
                 d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
               />
             </svg>
-            <p>Google</p>
+            <p className="font-semibold font-gray-600">Sign in with Google</p>
           </button>
         </div>
       </div>

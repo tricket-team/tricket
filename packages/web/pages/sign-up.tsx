@@ -93,7 +93,7 @@ function Signup() {
               Password
             </label>
             <div className="relative">
-              <div className="absolute top-1 right-1 flex items-center">
+              <div className="absolute top-3.5 right-2">
                 {passwordShown ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@ function Signup() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-9 h-9 cursor-pointer"
+                    className="w-4 h-4 cursor-pointer"
                     onClick={togglePassword}
                   >
                     <path
@@ -122,7 +122,7 @@ function Signup() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-9 h-9 cursor-pointer"
+                    className="w-4 h-4 cursor-pointer"
                     onClick={togglePassword}
                   >
                     <path
@@ -148,7 +148,7 @@ function Signup() {
               Confirm Password
             </label>
             <div className="relative">
-              <div className="absolute top-1 right-1 flex items-center">
+              <div className="absolute top-3.5 right-2">
                 {confirmPasswordShown ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@ function Signup() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-9 h-9 cursor-pointer"
+                    className="w-4 h-4 cursor-pointer"
                     onClick={toggleConfirmPassword}
                   >
                     <path
@@ -177,7 +177,7 @@ function Signup() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-9 h-9 cursor-pointer"
+                    className="w-4 h-4 cursor-pointer"
                     onClick={toggleConfirmPassword}
                   >
                     <path

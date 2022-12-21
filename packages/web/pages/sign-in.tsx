@@ -99,8 +99,8 @@ function Signin() {
         </div>
         <div className="flex justify-center px-6 pb-2 items-center">
           <button
-            style={{ backgroundColor: '#4EE191', height: 45 }}
-            className="rounded-[16px] w-full"
+            style={{ height: 45 }}
+            className="rounded-[16px] w-full bg-[#4EE191] hover:bg-opacity-70 transition"
           >
             Login
           </button>
@@ -155,7 +155,7 @@ function Signin() {
         </div>
 
         <div className="flex px-6 pb-2 items-center">
-          <button className="flex items-center justify-center w-full border-2 rounded-[8px] gap-2 border-[#4EE191]">
+          <button className="flex items-center justify-center w-full border-2 rounded-[8px] gap-2 border-[#4EE191] hover:scale-[105%] transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"

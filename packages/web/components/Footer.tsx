@@ -1,32 +1,47 @@
 import React from 'react';
-import Image from 'next/image';
+
+type FooterType = {
+  title: string;
+  listItem: ListItemType[];
+};
+
+type ListItemType = {
+  list: string;
+};
 
 const Footer = () => {
+  const footerData: FooterType[] = [
+    {
+      title: 'Help',
+      listItem: [
+        { list: 'How to buy tickets?' },
+        { list: 'How to use e-ticket?' },
+        { list: 'Help center' },
+      ],
+    },
+    {
+      title: 'Services',
+      listItem: [{ list: 'Customer Stories' }, { list: 'Talk to us' }],
+    },
+    {
+      title: 'Customer Support',
+      listItem: [{ list: '+(66) 2 026 3068' }, { list: 'support@spicyz.com' }],
+    },
+  ];
+
   return (
     <div className="w-full grid grid-cols-12">
       <div className="grid grid-cols-10 col-start-2 col-end-12 text-[#1AAD90]">
-        <div className="col-span-2">
-          <p className="mb-4 font-bold text-[16.5px]">Help</p>
-          <ul className="font-semibold flex flex-col gap-y-2">
-            <li>How to buy tickets?</li>
-            <li>How to use e-ticket?</li>
-            <li>Help center</li>
-          </ul>
-        </div>
-        <div className="col-span-2">
-          <p className="mb-4 font-bold text-[16.5px]">Services</p>
-          <ul className="font-semibold flex flex-col gap-y-2">
-            <li>Customer Stories</li>
-            <li>Talk to us</li>
-          </ul>
-        </div>
-        <div className="col-span-2">
-          <p className="mb-4 font-bold text-[16.5px]">Customer Support</p>
-          <ul className="font-semibold flex flex-col gap-y-2">
-            <li>+(66) 2 026 3068</li>
-            <li>support@spicyz.com</li>
-          </ul>
-        </div>
+        {footerData.map((item: FooterType, i: number) => (
+          <div className="col-span-2" key={i}>
+            <p className="mb-4 font-bold text-[16.5px]">{item.title}</p>
+            <ul className="font-semibold flex flex-col gap-y-2">
+              {item.listItem.map((item: ListItemType, i: number) => (
+                <li key={i}>{item.list}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
         <div className="col-span-3 col-end-11 text-end flex flex-col gap-y-2">
           <h1 className="text-6xl font-semibold">Tricket</h1>
           <p className="font-semibold">

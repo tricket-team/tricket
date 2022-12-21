@@ -1,5 +1,6 @@
 package co.tricket.apiauthentication.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 @Data
+@Builder
 public class UserEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = -6650736954735322112L;

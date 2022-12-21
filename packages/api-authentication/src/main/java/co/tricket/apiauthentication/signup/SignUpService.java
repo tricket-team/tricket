@@ -26,17 +26,21 @@ public class SignUpService {
 
             UserRecord userRecord = FirebaseAuth.getInstance().createUser(createRequest);
             System.out.println("Successfully created user: " + userRecord.getUid() + " (" + userRecord.getDisplayName() + ")");
-            UserEntity user = new UserEntity();
-            user.setId(UUID.randomUUID().toString());
-            user.setUid(userRecord.getUid());
-            user.setFirstName(userRecord.getDisplayName().split(" ")[0]);
-            user.setLastName(userRecord.getDisplayName().split(" ")[1]);
-            user.setEmail(userRecord.getEmail());
-            user.setPhoneNumber(userRecord.getPhoneNumber());
-            user.setBirthDate(model.getBirthDate());
 
-            return ResponseEntity.ok(this.repository.save(user));
-        } catch (FirebaseAuthException exception) {
+            UserEntity user = UserEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .uid(userRecord.getUid())
+                .firstName(userRecord.getDisplayName().split(" ")[0])
+                .lastName(userRecord.getDisplayName().split(" ")[1])
+                .email(userRecord.getEmail())
+                .phoneNumber(userRecord.getPhoneNumber())
+                .birthDate(model.getBirthDate())
+                .build();
+
+            ResponseEntity<UserEntity> response = ResponseEntity.ok(this.repository.save(user));
+
+            return response;
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
             return ResponseEntity.badRequest().body(null);
         }

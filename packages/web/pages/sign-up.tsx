@@ -90,6 +90,14 @@ function Signup() {
             ></input>
           </div>
         </div>
+        <div className="flex justify-center px-6 pb-2 items-center">
+          <button
+            style={{ height: 45 }}
+            className="rounded-[16px] w-full bg-[#4EE191] hover:bg-opacity-70 transition"
+          >
+            Sign up
+          </button>
+        </div>
       </div>
     </div>
   );

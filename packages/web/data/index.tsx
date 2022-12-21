@@ -37,3 +37,31 @@ export const mockData: data[] = [
     location: 'Lacol Khaoyai',
   },
 ];
+
+export type FooterType = {
+  title: string;
+  listItem: ListItemType[];
+};
+
+export type ListItemType = {
+  list: string;
+};
+
+export const footerData: FooterType[] = [
+  {
+    title: 'Help',
+    listItem: [
+      { list: 'How to buy tickets?' },
+      { list: 'How to use e-ticket?' },
+      { list: 'Help center' },
+    ],
+  },
+  {
+    title: 'Services',
+    listItem: [{ list: 'Customer Stories' }, { list: 'Talk to us' }],
+  },
+  {
+    title: 'Customer Support',
+    listItem: [{ list: '+(66) 2 026 3068' }, { list: 'support@spicyz.com' }],
+  },
+];

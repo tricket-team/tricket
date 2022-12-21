@@ -11,20 +11,20 @@ type Ticket = {
 };
 
 function Detail() {
-  // const [ticketNumber, setTicketNumber] = useState([]);
+  const [ticketNumber, setTicketNumber] = useState([]);
 
-  // const ticketQuantity = (ticket: number) => {
-  //   for (let i = 0; i < ticket + 1; i++) {
-  //     ticketNumber.push(i);
-  //   }
-  //   return setTicketNumber;
-  // };
+  const ticketQuantity = (ticket: number) => {
+    for (let i = 0; i < ticket + 1; i++) {
+      ticketNumber.push(i);
+    }
+    return setTicketNumber;
+  };
 
-  // useState(() =>
-  //   eventDetailDummy.ticket.forEach((element) => {
-  //     ticketQuantity(element.quantity);
-  //   })
-  // );
+  useState(() =>
+    eventDetailDummy.ticket.forEach((element) => {
+      ticketQuantity(element.quantity);
+    })
+  );
 
   const [newTicket, setNewTicket] = useState<Ticket[]>([]);
 
@@ -129,12 +129,13 @@ function Detail() {
                         </svg>
                       </div>
                     </Menu.Button>
-                    <Menu.Items className="items-end">
-                      <p className="py-2 px-3 bg-white/20 text-center">0</p>
-                    </Menu.Items>
-                    <Menu.Items className="items-end">
-                      <p className="py-2 px-3 bg-white/20 text-center">1</p>
-                    </Menu.Items>
+                    {ticketNumber.map((item: number, i: number) => (
+                      <Menu.Items className="items-end cursor-pointer" key={i}>
+                        <p className="py-2 px-3 bg-white/20 hover:bg-white/30 text-center">
+                          {item}
+                        </p>
+                      </Menu.Items>
+                    ))}
                   </Menu>
                 </div>
               </div>

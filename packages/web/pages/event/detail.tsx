@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Navbar from '../../components/NavBar';
 import { Menu } from '@headlessui/react';
@@ -9,25 +9,18 @@ type Ticket = {
   price: string;
   quantity: number[];
 };
-
+function Ticket(item) {
+  const getTicket = [];
+  for (let i = 0; i <= item.quantity; i++) {
+    getTicket.push(i);
+  }
+  return getTicket.map((num) => (
+    <option className="text-center" value={num}>
+      {num}
+    </option>
+  ));
+}
 function Detail() {
-  const [ticketNumber, setTicketNumber] = useState([]);
-
-  const ticketQuantity = (ticket: number) => {
-    for (let i = 0; i < ticket + 1; i++) {
-      ticketNumber.push(i);
-    }
-    return setTicketNumber;
-  };
-
-  useState(() =>
-    eventDetailDummy.ticket.forEach((element) => {
-      ticketQuantity(element.quantity);
-    })
-  );
-
-  const [newTicket, setNewTicket] = useState<Ticket[]>([]);
-
   return (
     <div className="grid grid-cols-12 mb-10">
       <Navbar />
@@ -100,7 +93,7 @@ function Detail() {
           <hr className="col-span-9 my-4"></hr>
           {eventDetailDummy.ticket.map((item: TicketType, i: number) => (
             <div
-              className="flex justify-between items-start col-span-9 grid grid-cols-9 my-2"
+              className="justify-between items-start col-span-9 grid grid-cols-9 my-2"
               key={i}
             >
               <div className="col-span-3 font-medium">
@@ -111,7 +104,10 @@ function Detail() {
               </div>
               <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
                 <div className="col-start-4">
-                  <Menu>
+                  <select defaultValue={'Select'} className="bg-black w-10">
+                    {Ticket(item)}
+                  </select>
+                  {/* <Menu>
                     <Menu.Button className="border border-white py-2 px-3 rounded">
                       <div className="flex gap-x-2 items-center">
                         <p>Select</p>
@@ -136,7 +132,7 @@ function Detail() {
                         </p>
                       </Menu.Items>
                     ))}
-                  </Menu>
+                  </Menu> */}
                 </div>
               </div>
             </div>

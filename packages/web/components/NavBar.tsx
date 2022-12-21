@@ -4,7 +4,7 @@ import Image from 'next/image';
 const NavBar = () => {
   return (
     <>
-      <div className="fixed w-full grid grid-cols-12">
+      <div className="fixed w-full grid grid-cols-12 z-50">
         <div className="col-start-2 col-end-12 mt-10">
           <div className="bg-white/[.03]	backdrop-blur-md rounded-lg">
             <div className="py-3 px-5 flex justify-between items-center">

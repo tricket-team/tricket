@@ -8,6 +8,7 @@
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
+    "@headlessui/react": "^1.7.7",
     "@jnxplus/nx-boot-maven": "^3.1.0",
     "@nrwl/eslint-plugin-nx": "15.3.3",
     "@nrwl/js": "15.3.3",

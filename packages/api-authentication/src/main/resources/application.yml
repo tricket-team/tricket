@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/tricket
+#    driver-class-name: org.postgresql.Driver
+    url: jdbc:aws-wrapper:postgresql://tricket-development.cluster-crhu9zpr9daq.ap-southeast-1.rds.amazonaws.com/tricket
+    driver-class-name: software.amazon.jdbc.Driver
+    username: tricket
+    password: 3a426af65319f083409dbd616f148030
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update

@@ -1,12 +1,12 @@
 {
-  "name": "authentication-api",
+  "name": "api-authentication",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "packages/authentication-api/src",
+  "sourceRoot": "packages/api-authentication/src",
   "targets": {
     "build": {
       "executor": "@jnxplus/nx-boot-maven:build",
-      "outputs": ["packages/authentication-api/target"]
+      "outputs": ["packages/api-authentication/target"]
     },
     "build-image": {
       "executor": "@jnxplus/nx-boot-maven:build-image"

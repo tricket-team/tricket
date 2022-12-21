@@ -37,3 +37,15 @@ export const mockData: data[] = [
     location: 'Lacol Khaoyai',
   },
 ];
+
+type OrderType = {
+  title: string;
+  price: number;
+  quantity: number;
+};
+
+export const mockOrder: OrderType = {
+  title: "Gun N' Rose",
+  price: 5000,
+  quantity: 3,
+};

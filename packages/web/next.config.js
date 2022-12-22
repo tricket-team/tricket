@@ -17,6 +17,7 @@ const nextConfig = {
       'scontent.fbkk31-1.fna.fbcdn.net',
       's3-ap-southeast-1.amazonaws.com',
       'i.pinimg.com',
+      'tricket-team.s3.ap-southeast-1.amazonaws.com',
     ],
   },
 };

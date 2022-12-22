@@ -71,7 +71,7 @@ const CreateEvent = () => {
         });
       })
       .catch((e) => console.log(e))
-      .finally(() => router.push('/'));
+      .finally(() => router.push('/event'));
   };
 
   return (

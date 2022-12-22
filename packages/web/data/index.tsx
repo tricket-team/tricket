@@ -1,3 +1,24 @@
+export type EventType = {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  startTime: string;
+  endTime: string;
+  slug: string;
+  type: string;
+  venueId: string;
+  venue: VenueType;
+};
+
+type VenueType = {
+  id: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  address: string;
+};
+
 export type data = {
   img: string;
   date: string;

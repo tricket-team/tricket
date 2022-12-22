@@ -15,7 +15,7 @@ const CreateEvent = () => {
   const [address, setAddress] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [imageFile, setImageFile] = useState(Object);
+  const [imageFile, setImageFile] = useState([]);
 
   const shiftStepForward = (currentStep: createEvent) => {
     const current = currentStep.toString();
@@ -44,30 +44,21 @@ const CreateEvent = () => {
   const postCreateEvent = async () => {
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('type', eventType);
+    formData.append('image', imageFile);
     formData.append('description', description);
+    formData.append('startTime', startDate);
+    formData.append('endTime', endDate);
+    formData.append('type', eventType);
+    formData.append('slug', title.toLowerCase().split(' ').join('-'));
     formData.append('country', country);
     formData.append('state', state);
     formData.append('postalCode', postCode);
     formData.append('address', address);
-    formData.append('slug', title.toLowerCase().split(' ').join('-'));
-    formData.append('startTime', startDate);
-    formData.append('endTime', endDate);
-    formData.append('image', imageFile);
 
-    await fetch('http://localhost:9000/event/create', {
+    await fetch('http://localhost:9001/event/create', {
       method: 'POST',
       body: formData,
-    })
-      .then((response) => response.json())
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: `Created ${title} event`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
+    }).then((response) => response.json());
   };
 
   return (
@@ -246,7 +237,7 @@ const CreateEvent = () => {
                     name="filename"
                     className="mt-4"
                     onChange={(e) => {
-                      setImageFile(e.target);
+                      setImageFile(e.target.files[0]);
                     }}
                     required
                   />

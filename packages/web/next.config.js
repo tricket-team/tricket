@@ -13,7 +13,10 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ["scontent.fbkk31-1.fna.fbcdn.net"],
+    domains: [
+      'scontent.fbkk31-1.fna.fbcdn.net',
+      's3-ap-southeast-1.amazonaws.com',
+    ],
   },
 };
 

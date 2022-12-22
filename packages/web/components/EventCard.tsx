@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { mockData, data } from '../data';
 
 const EventCard = () => {
@@ -12,9 +13,12 @@ const EventCard = () => {
       <div className="flex justify-between">
         {mockData.map((item: data, i: number) => (
           <div className="my-6 flex flex-col gap-y-2 w-[230px]" key={i}>
-            <div className="bg-gray-600 w-[230px] h-[320px] rounded-md">
-              <div className="w-full h-full items-center justify-center flex gap-x-2 rounded-md transition-all hover:bg-black/30 opacity-0 hover:opacity-100 ">
-                <p className="text-white text-xl font-semibold">GET TICKET</p>
+            <div className="relative bg-transparent w-[230px] h-[320px] rounded-md">
+              <Image src={item.img} fill alt="" className="rounded-md" />
+              <div className="absolute w-full h-full items-center justify-center flex gap-x-2 rounded-md transition-all hover:bg-black/30 opacity-0 hover:opacity-100 ">
+                <p className="text-white text-xl font-semibold cursor-pointer">
+                  GET TICKET
+                </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

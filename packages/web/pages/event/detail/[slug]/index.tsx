@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { use, useEffect } from 'react';
 import Image from 'next/image';
 import Navbar from '../../../../components/NavBar';
 import { eventDetailDummy, TicketType } from '../../../../data';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Footer } from '../../../../components';
+import Link from 'next/link';
 
-function Ticket(item: TicketType) {
-  const getTicket = [];
-  for (let i = 0; i <= item.quantity; i++) {
-    getTicket.push(i);
-  }
-
-  return getTicket.map((num) => (
-    <option className="text-center" value={num} key={num}>
-      {num}
-    </option>
-  ));
-}
-
+// function Ticket(item: TicketType) {
+//   const getTicket = [];
+//   for (let i = 0; i <= item.quantity; i++) {
+//     getTicket.push(i);
+//   }
+//   return getTicket.map((num) => (
+//     <option className="text-center" value={num} key={num}>
+//       {num}
+//     </option>
+//   ));
+// }
 function Detail() {
   const router = useRouter();
   const slug = router.query.slug as string;
@@ -26,6 +25,24 @@ function Detail() {
   useState(() => {
     fetch('');
   });
+  const [ticketData, setTicketData] = useState({
+    title: '',
+    type: '',
+    quantity: 0,
+    price: 0,
+  });
+  function buy() {}
+  useEffect(() => {
+    console.log(ticketData);
+  });
+  function TicketHanler(num, seat: string, price) {
+    setTicketData({
+      title: eventDetailDummy.title,
+      type: seat,
+      quantity: num,
+      price: price,
+    });
+  }
 
   return (
     <>
@@ -113,21 +130,68 @@ function Detail() {
                 </div>
                 <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
                   <div className="col-start-4">
-                    <select
-                      defaultValue={'Select'}
-                      className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
-                    >
-                      {Ticket(item)}
-                    </select>
+                    {!ticketData.quantity || ticketData.type === item.title ? (
+                      <select
+                        defaultValue={'Select'}
+                        className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
+                        onChange={(e) => {
+                          if (e.target.value === '0') {
+                            TicketHanler(0, '', 0);
+                          } else {
+                            TicketHanler(1, item.title, item.price);
+                          }
+                        }}
+                      >
+                        <option className="text-center" value={0}>
+                          0
+                        </option>
+                        <option className="text-center" value={1}>
+                          1
+                        </option>
+                      </select>
+                    ) : (
+                      <select
+                        disabled
+                        defaultValue={'Select'}
+                        className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
+                        onChange={(e) => {
+                          if (e.target.value === '0') {
+                            TicketHanler(0, '', 0);
+                          } else {
+                            TicketHanler(1, item.title, item.price);
+                          }
+                        }}
+                      >
+                        <option className="text-center" value={0}>
+                          0
+                        </option>
+                        <option className="text-center" value={1}>
+                          1
+                        </option>
+                      </select>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <button className="col-start-2 col-end-12 bg-[#1E1E1E] py-4 text-white rounded-md font-semibold">
-          Buy Ticket
-        </button>
+        <Link
+          className="col-start-2 col-end-12 text-center bg-[#1E1E1E] py-4 text-white rounded-md font-semibold"
+          onClick={() => {
+            buy();
+          }}
+          href={{
+            pathname: `/checkout/[title]`,
+            query: ticketData,
+          }}
+          as={`/checkout/${ticketData.title
+            .toLowerCase()
+            .split(' ')
+            .join('-')}`}
+        >
+          <button>Buy Ticket</button>
+        </Link>
       </div>
       <Footer />
     </>

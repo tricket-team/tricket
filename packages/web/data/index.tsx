@@ -100,3 +100,10 @@ export const eventDetailDummy: EventDetailType = {
     { title: 'YELLOW ZONE (R)', price: 7000, quantity: 10 },
   ],
 };
+
+export enum createEvent {
+  'add title',
+  'add description',
+  'add date and location',
+  'upload cover image',
+}

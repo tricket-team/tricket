@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/preset-react': ^7.14.5
+  '@headlessui/react': ^1.7.7
   '@jnxplus/nx-boot-maven': ^3.1.0
   '@nrwl/eslint-plugin-nx': 15.3.3
   '@nrwl/js': 15.3.3
@@ -34,6 +35,7 @@ specifiers:
   react-dom: 18.2.0
   react-test-renderer: 18.2.0
   regenerator-runtime: 0.13.7
+  sweetalert2: ^11.6.16
   tailwindcss: ^3.2.4
   tslib: ^2.3.0
   typescript: ~4.8.2
@@ -48,6 +50,7 @@ dependencies:
 
 devDependencies:
   '@babel/preset-react': 7.18.6_@babel+core@7.20.5
+  '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@jnxplus/nx-boot-maven': 3.1.0_l4clldajpiokc34kv32tjxyv2u
   '@nrwl/eslint-plugin-nx': 15.3.3_7kvnwcp6mm63azsyyiskbkpsti
   '@nrwl/js': 15.3.3_r2gzx2xpzw7235i7kfuv5sanse
@@ -75,6 +78,7 @@ devDependencies:
   postcss: 8.4.20
   prettier: 2.8.1
   react-test-renderer: 18.2.0_react@18.2.0
+  sweetalert2: 11.6.16
   tailwindcss: 3.2.4_postcss@8.4.20
   typescript: 4.8.4
 
@@ -1919,6 +1923,18 @@ packages:
       long: 4.0.0
       protobufjs: 7.1.2
       yargs: 16.2.0
+    dev: true
+
+  /@headlessui/react/1.7.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-BqDOd/tB9u2tA0T3Z0fn18ktw+KbVwMnkxxsGPIH2hzssrQhKB5n/6StZOyvLYP/FsYtvuXfi9I0YowKPv2c1w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: true
 
   /@humanwhocodes/config-array/0.9.5:
@@ -8969,6 +8985,10 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
+    dev: true
+
+  /sweetalert2/11.6.16:
+    resolution: {integrity: sha512-T2FO8LptErsjE4r0WMfiSk4YbeUvPadNaUZ/cADMEOnws000znrf8zFX9S5e/spvzJDyRI5En73WQyDZhGypxQ==}
     dev: true
 
   /tailwindcss/3.2.4_postcss@8.4.20:

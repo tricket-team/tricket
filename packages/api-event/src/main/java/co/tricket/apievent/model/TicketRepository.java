@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketRepository extends CrudRepository<TicketEntity, String> {
-
+    TicketEntity[] getTicketByEventId(String eventId);
 }

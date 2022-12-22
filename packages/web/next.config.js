@@ -13,7 +13,7 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ["scontent.fbkk31-1.fna.fbcdn.net"],
+    domains: ['scontent.fbkk31-1.fna.fbcdn.net', 'i.pinimg.com'],
   },
 };
 

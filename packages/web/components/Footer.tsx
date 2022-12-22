@@ -1,36 +1,9 @@
 import React from 'react';
-
-type FooterType = {
-  title: string;
-  listItem: ListItemType[];
-};
-
-type ListItemType = {
-  list: string;
-};
+import { footerData, FooterType, ListItemType } from '../data';
 
 const Footer = () => {
-  const footerData: FooterType[] = [
-    {
-      title: 'Help',
-      listItem: [
-        { list: 'How to buy tickets?' },
-        { list: 'How to use e-ticket?' },
-        { list: 'Help center' },
-      ],
-    },
-    {
-      title: 'Services',
-      listItem: [{ list: 'Customer Stories' }, { list: 'Talk to us' }],
-    },
-    {
-      title: 'Customer Support',
-      listItem: [{ list: '+(66) 2 026 3068' }, { list: 'support@spicyz.com' }],
-    },
-  ];
-
   return (
-    <div className="w-full grid grid-cols-12">
+    <div className="w-full grid grid-cols-12 py-20">
       <div className="grid grid-cols-10 col-start-2 col-end-12 text-[#1AAD90]">
         {footerData.map((item: FooterType, i: number) => (
           <div className="col-span-2" key={i}>

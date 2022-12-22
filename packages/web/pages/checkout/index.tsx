@@ -7,6 +7,9 @@ const Checkout = () => {
   const [nameOnCard, setNameOnCard] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [address, setAddress] = useState('');
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [postCode, setPostCode] = useState('');
 
   return (
     <>
@@ -65,7 +68,7 @@ const Checkout = () => {
               <input
                 className="border-2 w-full py-2 px-2 rounded-md"
                 type="email"
-                placeholder="Email"
+                placeholder="email"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -78,7 +81,7 @@ const Checkout = () => {
               <input
                 className="border-2 w-full py-2 px-2 rounded-md"
                 type="text"
-                placeholder="Name"
+                placeholder="name"
                 onChange={(e) => {
                   setNameOnCard(e.target.value);
                 }}
@@ -132,11 +135,52 @@ const Checkout = () => {
               <input
                 className="border-2 w-full py-2 px-2 rounded-md"
                 type="text"
-                placeholder="Address"
+                placeholder="address"
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
               />
+            </div>
+            <div className="flex gap-x-5">
+              <div className="w-full">
+                <label htmlFor="" className="text-gray-700 font-semibold">
+                  State
+                </label>
+                <input
+                  className="border-2 py-2 px-2 rounded-md  w-full"
+                  type="text"
+                  placeholder="state"
+                  onChange={(e) => {
+                    setState(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-3/4">
+                <label htmlFor="" className="text-gray-700 font-semibold">
+                  Country
+                </label>
+                <input
+                  className="border-2 py-2 px-2 rounded-md  w-full"
+                  type="text"
+                  placeholder="country"
+                  onChange={(e) => {
+                    setCountry(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-3/4">
+                <label htmlFor="" className="text-gray-700 font-semibold">
+                  Postal Code
+                </label>
+                <input
+                  className="border-2 py-2 px-2 rounded-md  w-full"
+                  type="text"
+                  placeholder="postal code"
+                  onChange={(e) => {
+                    setPostCode(e.target.value);
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div className="flex justify-center pb-2 items-center">

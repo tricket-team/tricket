@@ -1,13 +1,21 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { NavBar, Footer } from '../../components';
-import { createEvent } from '../../data';
+import { createEvent, EventType } from '../../data';
+import Swal from 'sweetalert2';
 
 const CreateEvent = () => {
   const [step, setStep] = useState<createEvent>(createEvent['add title']);
   const [title, setTitle] = useState('');
-  const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [country, setCountry] = useState('');
+  const [description, setDescription] = useState('');
+  const [state, setState] = useState('');
+  const [postCode, setPostcode] = useState('');
+  const [address, setAddress] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [imageFile, setImageFile] = useState(Object);
 
   const shiftStepForward = (currentStep: createEvent) => {
     const current = currentStep.toString();
@@ -31,6 +39,35 @@ const CreateEvent = () => {
     } else if (current === createEvent['upload cover image'].toString()) {
       setStep(createEvent['add description']);
     }
+  };
+
+  const postCreateEvent = async () => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('type', eventType);
+    formData.append('description', description);
+    formData.append('country', country);
+    formData.append('state', state);
+    formData.append('postalCode', postCode);
+    formData.append('address', address);
+    formData.append('slug', title.toLowerCase().split(' ').join('-'));
+    formData.append('startTime', startDate);
+    formData.append('endTime', endDate);
+    formData.append('image', imageFile);
+
+    await fetch('http://localhost:9000/event/create', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: `Created ${title} event`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   return (
@@ -60,7 +97,24 @@ const CreateEvent = () => {
                     onChange={(e) => {
                       setTitle(e.target.value);
                     }}
+                    required
                   />
+                  <label htmlFor="" className="text-gray-800 font-semibold">
+                    What type is your event?
+                  </label>
+                  <select
+                    defaultValue={'Select'}
+                    className="w-full rounded h-10 border my-4"
+                    onChange={(e) => setEventType(e.target.value)}
+                  >
+                    {EventType.map((item: string, i: number) => {
+                      return (
+                        <option className="text-center" value={item} key={i}>
+                          {item}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               )}
 
@@ -71,22 +125,92 @@ const CreateEvent = () => {
                   </label>
                   <div className="flex gap-3 py-2 my-4">
                     <div className="w-full">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        Country
+                      </label>
                       <input
                         className="border-2 w-full py-2 px-2 rounded-md"
                         type="text"
                         placeholder="Ohio"
                         onChange={(e) => {
-                          setLocation(e.target.value);
+                          setCountry(e.target.value);
                         }}
+                        required
                       />
                     </div>
                     <div className="w-full">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        State
+                      </label>
+                      <input
+                        className="border-2 w-full py-2 px-2 rounded-md"
+                        type="text"
+                        placeholder="Ohio"
+                        onChange={(e) => {
+                          setState(e.target.value);
+                        }}
+                        required
+                      />
+                    </div>
+                    <div className="w-2/3">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        Postal Code
+                      </label>
+                      <input
+                        className="border-2 w-full py-2 px-2 rounded-md"
+                        type="text"
+                        placeholder="*****"
+                        onChange={(e) => {
+                          setPostcode(e.target.value);
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-3 py-2 my-4">
+                    <div className="w-full">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        Address
+                      </label>
+                      <input
+                        className="border-2 w-full py-2 px-2 rounded-md"
+                        type="text"
+                        placeholder="42 Ohio rd."
+                        onChange={(e) => {
+                          setAddress(e.target.value);
+                        }}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="" className="text-gray-800 font-semibold">
+                    When would you plan to sell your ticket?
+                  </label>
+                  <div className="flex gap-3 py-2 my-4">
+                    <div className="w-full">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        Start Date
+                      </label>
                       <input
                         className="border-2 w-full py-2 px-2 rounded-md"
                         type="Date"
                         onChange={(e) => {
-                          setDate(e.target.value);
+                          setStartDate(e.target.value);
                         }}
+                        required
+                      />
+                    </div>
+                    <div className="w-full">
+                      <label htmlFor="" className="text-gray-800 font-semibold">
+                        End Date
+                      </label>
+                      <input
+                        className="border-2 w-full py-2 px-2 rounded-md"
+                        type="Date"
+                        onChange={(e) => {
+                          setEndDate(e.target.value);
+                        }}
+                        required
                       />
                     </div>
                   </div>
@@ -104,8 +228,9 @@ const CreateEvent = () => {
                     rows={15}
                     maxLength={2000}
                     onChange={(e) => {
-                      setTitle(e.target.value);
+                      setDescription(e.target.value);
                     }}
+                    required
                   />
                 </div>
               )}
@@ -120,6 +245,10 @@ const CreateEvent = () => {
                     id="myFile"
                     name="filename"
                     className="mt-4"
+                    onChange={(e) => {
+                      setImageFile(e.target);
+                    }}
+                    required
                   />
                 </div>
               )}
@@ -181,7 +310,10 @@ const CreateEvent = () => {
                 )}
 
                 {step === createEvent['upload cover image'] && (
-                  <button className="mt-4 rounded bg-[#1AAD90] hover:bg-opacity-70 transition text-white py-2 px-3 font-semibold">
+                  <button
+                    className="mt-4 rounded bg-[#1AAD90] hover:bg-opacity-70 transition text-white py-2 px-3 font-semibold"
+                    onClick={postCreateEvent}
+                  >
                     Create Event
                   </button>
                 )}

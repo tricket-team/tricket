@@ -113,3 +113,5 @@ export enum createEvent {
   'add date and location',
   'upload cover image',
 }
+
+export const EventType = ['Concert', 'Talk Show', 'Festival', 'Meeting'];

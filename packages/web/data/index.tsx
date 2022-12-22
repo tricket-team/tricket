@@ -83,6 +83,12 @@ export type TicketType = {
   quantity: number;
 };
 
+export const mockOrder: TicketType = {
+  title: "Gun N' Rose",
+  price: 5000,
+  quantity: 3,
+};
+
 export const eventDetailDummy: EventDetailType = {
   title: "Guns N' Rose Live in Bangkok",
   location: 'Thunderdome Stadium',

@@ -72,7 +72,7 @@ const CreateEvent = () => {
         });
       })
       .catch((e) => console.log(e))
-      .finally(() => router.push('/createTicket'));
+      .finally(() => router.push('/event/createTicket'));
   };
 
   return (

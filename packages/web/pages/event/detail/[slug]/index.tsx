@@ -21,7 +21,6 @@ import Link from 'next/link';
 function Detail() {
   const router = useRouter();
   const slug = router.query.slug as string;
-
   useState(() => {
     fetch('');
   });
@@ -33,6 +32,7 @@ function Detail() {
   });
   function buy() {}
   useEffect(() => {
+    console.log(router.query);
     console.log(ticketData);
   });
   function TicketHanler(num, seat: string, price) {
@@ -50,7 +50,7 @@ function Detail() {
       <div className="grid grid-cols-12 mb-10">
         <div className="col-span-12">
           <Image
-            src={eventDetailDummy.coverImg}
+            src={router.query.image}
             width={1920}
             height={300}
             alt="gun_n_roses"
@@ -60,16 +60,16 @@ function Detail() {
         <div className="justify-center col-start-2 col-span-10 -mt-[550px] z-10">
           <div className="grid grid-cols-10 text-white">
             <span className="col-span-6 text-[96px] font-semibold">
-              {eventDetailDummy.title}
+              {router.query.title}
             </span>
             <div className="col-end-10 bg-white w-1"></div>
             <span className="col-end-11 text-right self-end font-semibold">
-              {eventDetailDummy.location}
+              {router.query.venue}
             </span>
           </div>
           <div className="grid-rows-2 mt-[60px]">
             <Image
-              src={eventDetailDummy.coverImg}
+              src={router.query.image}
               width={1600}
               height={300}
               alt="gun_n_roses"
@@ -77,21 +77,17 @@ function Detail() {
             />
             <div className="grid grid-cols-10 gap-4 mt-16 text-white">
               <div className="bg-[#1D1D1D] rounded-lg col-span-6 w-full h-20 flex items-center justify-center flex-col">
-                <p className="font-semibold font-lg">
-                  {eventDetailDummy.title}
-                </p>
+                <p className="font-semibold font-lg">{router.query.title}</p>
               </div>
               <div className="bg-[#1D1D1D] rounded-lg col-span-4 w-full h-20 flex items-center justify-center flex-col">
-                <p className="font-semibold">
-                  {eventDetailDummy.date}, {eventDetailDummy.time}
-                </p>
+                <p className="font-semibold">{router.query.startTime}</p>
                 <p>{eventDetailDummy.location}</p>
               </div>
             </div>
             <div className="grid grid-cols-10 gap-4 mt-16">
               <div className="col-span-5">
                 <Image
-                  src={eventDetailDummy.img}
+                  src={router.query.image}
                   width={1600}
                   height={300}
                   alt="gun_n_roses"
@@ -100,7 +96,7 @@ function Detail() {
               </div>
               <div className="col-span-5 pl-5">
                 <p className="font-semibold text-[24px]">Event Description</p>
-                <p className="mt-5 text-lg">{eventDetailDummy.description}</p>
+                <p className="mt-5 text-lg">{router.query.description}</p>
               </div>
             </div>
           </div>
@@ -178,9 +174,6 @@ function Detail() {
         </div>
         <Link
           className="col-start-2 col-end-12 text-center bg-[#1E1E1E] py-4 text-white rounded-md font-semibold"
-          onClick={() => {
-            buy();
-          }}
           href={{
             pathname: `/checkout/[title]`,
             query: ticketData,

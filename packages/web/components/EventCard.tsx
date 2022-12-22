@@ -16,7 +16,14 @@ const EventCard = () => {
     <>
       <div className="flex justify-between">
         {event.map((item: EventType, i: number) => (
-          <Link href={`/event/detail/${item.slug}`} key={i}>
+          <Link
+            href={{
+              pathname: `/event/detail/[slug]`,
+              query: item,
+            }}
+            as={`/event/detail/${item.slug.toLowerCase().split(' ').join('-')}`}
+            key={i}
+          >
             <div className="my-6 flex flex-col gap-y-2 w-[230px]">
               <div className="relative bg-transparent w-[230px] h-[320px] rounded-md">
                 <Image src={item.image} fill alt="" className="rounded-md" />

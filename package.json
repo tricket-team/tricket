@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "web:dev": "nx run web:serve"
+    "web:dev": "nx run web:serve",
+    "event:serve": "nx run api-event:serve",
+    "auth:serve": "nx run api-authentication:serve",
+    "tricket:serve": "nx run-many --target=serve --parallel=5"
   },
   "private": true,
   "devDependencies": {

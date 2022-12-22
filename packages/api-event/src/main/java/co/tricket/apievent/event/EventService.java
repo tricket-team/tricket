@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -71,7 +72,6 @@ public class EventService {
             .image(imageUrl)
             .venueId(model.getVenue().getId())
             .build();
-        System.out.println(event);
         return ResponseEntity.ok(this.eventRepository.save(event));
     }
 
@@ -107,11 +107,40 @@ public class EventService {
             waiterResponse.matched().response().ifPresent(System.out::println);
 
             String fileUrl = "https://tricket-team.s3.ap-southeast-1.amazonaws.com/" + fileName;
-            System.out.println(fileUrl);
             return ResponseEntity.ok(fileUrl);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().body(null);
         }
+    }
+
+    public void deleteEventAndVenue(String eventId) {
+        EventEntity event = this.eventRepository.findEventById(eventId);
+        this.deleteEvent(eventId);
+        this.deleteVenue(event.getVenueId());
+    }
+
+    public void deleteEvent(String eventId) {
+        try {
+            EventEntity event = this.eventRepository.findEventById(eventId);
+
+            S3Client client = S3Client.builder().build();
+            String bucketName = "tricket-team";
+            String fileName = event.getImage().replaceFirst("(https://tricket-team.s3.ap-southeast-1.amazonaws.com/)", "");
+
+            DeleteObjectRequest request = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileName)
+                .build();
+            client.deleteObject(request);
+
+            this.eventRepository.deleteById(eventId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteVenue(String venueId) {
+        this.venueRepository.deleteById(venueId);
     }
 }

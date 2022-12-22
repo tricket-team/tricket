@@ -66,12 +66,13 @@ const CreateEvent = () => {
         Swal.fire({
           icon: 'success',
           title: `Created ${title} event`,
+          text: "Let's place the ticket to sell!",
           showConfirmButton: false,
           timer: 1500,
         });
       })
       .catch((e) => console.log(e))
-      .finally(() => router.push('/event'));
+      .finally(() => router.push('/createTicket'));
   };
 
   return (

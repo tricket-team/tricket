@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { mockOrder } from '../../data';
+import Link from 'next/link';
 
 const Checkout = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,28 @@ const Checkout = () => {
     <>
       <div className="grid grid-cols-12 mt-10">
         <div className="col-start-2 col-end-8 px-10">
-          <h2 className="font-semibold text-3xl">Order Summary #6005148 </h2>
+          <Link href={'/'}>
+            <div className="flex gap-x-2 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                />
+              </svg>
+              <p className="font-semibold">Back</p>
+            </div>
+          </Link>
+          <h2 className="font-semibold text-3xl mt-4">
+            Order Summary #6005148{' '}
+          </h2>
           <div className="col-start-2 col-end-12 my-10 bg-gray-100 rounded-md w-full text-gray-800">
             <div className="p-5 w-full grid grid-cols-9">
               <div className="col-span-3 font-semibold text-lg">

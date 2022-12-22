@@ -1,7 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import Navbar from '../../components/NavBar';
-import { eventDetailDummy, TicketType } from '../../data';
+import Navbar from '../../../../components/NavBar';
+import { eventDetailDummy, TicketType } from '../../../../data';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 function Ticket(item: TicketType) {
   const getTicket = [];
@@ -15,7 +17,15 @@ function Ticket(item: TicketType) {
     </option>
   ));
 }
+
 function Detail() {
+  const router = useRouter();
+  const slug = router.query.slug as string;
+
+  useState(() => {
+    fetch('');
+  });
+
   return (
     <div className="grid grid-cols-12 mb-10">
       <Navbar />

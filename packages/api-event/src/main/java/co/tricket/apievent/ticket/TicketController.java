@@ -18,6 +18,13 @@ public class TicketController {
 
     @PostMapping("/create/{eventId}")
     public ResponseEntity<TicketEntity> createTicket(@RequestBody CreateTicketRequestModel request, @PathVariable String eventId) {
+        if (eventId.isBlank()) return null;
         return this.service.createTicket(request, eventId);
+    }
+
+    @DeleteMapping("/delete/{ticketId}")
+    public void deleteTicket(@PathVariable String ticketId) {
+        if (ticketId.isBlank()) return;
+        this.service.deleteTicket(ticketId);
     }
 }

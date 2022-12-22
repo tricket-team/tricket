@@ -28,4 +28,8 @@ public class TicketService {
             .build();
         return ResponseEntity.ok(ticketRepository.save(ticket));
     }
+
+    public void deleteTicket(String ticketId) {
+        this.ticketRepository.deleteById(ticketId);
+    }
 }

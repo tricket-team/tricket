@@ -36,4 +36,9 @@ public class EventController {
             .build();
         return this.eventService.createEventWithVenue(request, image);
     }
+
+    @DeleteMapping("/{eventId}")
+    public void deleteEvent(@PathVariable String eventId) {
+        this.eventService.deleteEventAndVenue(eventId);
+    }
 }

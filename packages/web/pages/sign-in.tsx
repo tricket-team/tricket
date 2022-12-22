@@ -22,7 +22,7 @@ function SignIn() {
 
   auth.onAuthStateChanged(async (user) => {
     if (user) {
-      Router.push('/');
+      Router.push('/event');
     }
   });
 

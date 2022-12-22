@@ -16,6 +16,7 @@ const nextConfig = {
     domains: [
       'scontent.fbkk31-1.fna.fbcdn.net',
       's3-ap-southeast-1.amazonaws.com',
+      'i.pinimg.com',
     ],
   },
 };

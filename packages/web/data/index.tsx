@@ -135,4 +135,9 @@ export enum createEvent {
   'upload cover image',
 }
 
+export enum createTicketState {
+  'ticket type qty',
+  'create ticket',
+}
+
 export const EventType = ['Concert', 'Talk Show', 'Festival', 'Meeting'];

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { auth } from '../config/firebase';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { User } from 'firebase/auth';
 
 const NavBar = () => {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -24,8 +25,23 @@ const NavBar = () => {
         <div className="col-start-2 col-end-12 my-5">
           <div className="bg-black/[.04] backdrop-blur-md rounded-lg">
             <div className="py-4 px-10 flex justify-between items-center">
-              <Image src={'/img/tricket.svg'} width={120} height={50} alt="" />
-              <div className="text-[#24475B] font-semibold flex gap-x-10 items-center">
+              <Link href={'/event'}>
+                <Image
+                  src={
+                    router.pathname === '/event'
+                      ? '/img/tricket.svg'
+                      : '/img/tricket-white.svg'
+                  }
+                  width={120}
+                  height={50}
+                  alt=""
+                />
+              </Link>
+              <div
+                className={`${
+                  router.pathname === '/event' ? 'text-[#24475B]' : 'text-white'
+                } font-semibold flex gap-x-10 items-center`}
+              >
                 <Link href={'/event'}>Home</Link>
                 {user ? (
                   <div className="flex gap-x-10 items-center">

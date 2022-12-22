@@ -4,6 +4,9 @@ import { auth } from '../config/firebase';
 import {
   signInWithCustomToken,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  UserCredential,
 } from 'firebase/auth';
 import Router from 'next/router';
 import Link from 'next/link';
@@ -29,14 +32,24 @@ function SignIn() {
       email,
       password
     );
+    await customToken(userCredential);
+  };
+
+  const customToken = async (cred: UserCredential) => {
     const tokenResponse = await fetch('http://localhost:9000/sign-in', {
       method: 'POST',
       headers: {
-        Authorization: await userCredential.user.getIdToken(),
+        Authorization: await cred.user.getIdToken(),
       },
     });
     const token = await tokenResponse.text();
     await signInWithCustomToken(auth, token);
+  };
+
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    const cred = await signInWithPopup(auth, provider);
+    await customToken(cred);
   };
 
   return (
@@ -181,7 +194,10 @@ function SignIn() {
           </div>
 
           <div className="flex px-6 pb-2 items-center">
-            <button className="bg-gray-200 flex items-center justify-center w-full border-2 rounded gap-4 hover:scale-[102%] transition">
+            <button
+              className="bg-gray-200 flex items-center justify-center w-full border-2 rounded gap-4 hover:scale-[102%] transition"
+              onClick={signInWithGoogle}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="23"

@@ -24,8 +24,10 @@ public class TicketEntity implements Serializable {
     private String title;
     private String date;
     private BigDecimal price;
-    @OneToOne
-    @JoinColumn(name = "id")
+
+    private String eventId;
+    @ManyToOne
+    @JoinColumn(name = "eventId", referencedColumnName = "id", updatable = false, insertable = false)
     private EventEntity event;
 
     public TicketEntity() {

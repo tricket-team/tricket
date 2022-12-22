@@ -4,6 +4,7 @@ import co.tricket.apievent.model.EventEntity;
 import co.tricket.apievent.model.EventRepository;
 import co.tricket.apievent.model.VenueEntity;
 import co.tricket.apievent.model.VenueRepository;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,7 +69,9 @@ public class EventService {
             .slug(model.getSlug())
             .venue(model.getVenue())
             .image(imageUrl)
+            .venueId(model.getVenue().getId())
             .build();
+        System.out.println(event);
         return ResponseEntity.ok(this.eventRepository.save(event));
     }
 
@@ -85,23 +88,27 @@ public class EventService {
 
     public ResponseEntity<String> saveEventImage(String eventId, MultipartFile image) {
         try {
+            String sourceFileExtension = FilenameUtils.getExtension(image.getOriginalFilename());
+            String fileName = eventId + "." + sourceFileExtension;
             String bucketName = "tricket-team";
             S3Client client = S3Client.builder().build();
             PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(bucketName)
-                .key(eventId)
+                .key(fileName)
                 .build();
             client.putObject(request, RequestBody.fromBytes(image.getBytes()));
 
             S3Waiter waiter = client.waiter();
             HeadObjectRequest requestWait = HeadObjectRequest.builder()
                 .bucket(bucketName)
-                .key(eventId).build();
+                .key(fileName).build();
 
             WaiterResponse<HeadObjectResponse> waiterResponse = waiter.waitUntilObjectExists(requestWait);
-            waiterResponse.matched().response().ifPresent();
+            waiterResponse.matched().response().ifPresent(System.out::println);
 
-            return ResponseEntity.ok("");
+            String fileUrl = "https://tricket-team.s3.ap-southeast-1.amazonaws.com/" + fileName;
+            System.out.println(fileUrl);
+            return ResponseEntity.ok(fileUrl);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().body(null);

@@ -21,7 +21,19 @@ public class EventController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<EventEntity> createEvent(@RequestParam("image") MultipartFile image, @RequestParam CreateEventRequestModel request) {
+    public ResponseEntity<EventEntity> createEvent(@RequestParam("image") MultipartFile image, @RequestParam String title, @RequestParam String description, @RequestParam String startTime, @RequestParam String endTime, @RequestParam String type, @RequestParam String slug, @RequestParam String country, @RequestParam String state, @RequestParam String postalCode, @RequestParam String address) {
+        CreateEventRequestModel request = CreateEventRequestModel.builder()
+            .title(title)
+            .description(description)
+            .startTime(startTime)
+            .endTime(endTime)
+            .type(type)
+            .slug(slug)
+            .country(country)
+            .state(state)
+            .postalCode(postalCode)
+            .address(address)
+            .build();
         return this.eventService.createEventWithVenue(request, image);
     }
 }

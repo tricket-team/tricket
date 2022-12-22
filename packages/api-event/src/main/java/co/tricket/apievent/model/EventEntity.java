@@ -28,8 +28,9 @@ public class EventEntity implements Serializable {
     private String type;
     private String slug;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    private String venueId;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "venueId", referencedColumnName = "id", insertable = false, updatable = false)
     private VenueEntity venue;
 
     public EventEntity() {

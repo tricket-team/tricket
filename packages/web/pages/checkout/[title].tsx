@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { mockOrder } from '../../data';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 
-const Checkout = () => {
+export default function CheckoutTitle() {
   const [email, setEmail] = useState('');
   const [nameOnCard, setNameOnCard] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -13,7 +13,10 @@ const Checkout = () => {
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [postCode, setPostCode] = useState('');
-
+  const router = useRouter();
+  useEffect(() => {
+    console.log(router.query);
+  });
   return (
     <>
       <div className="grid grid-cols-12 mt-10">
@@ -54,13 +57,13 @@ const Checkout = () => {
               <hr className="col-span-9 my-4"></hr>
               <div className="flex justify-between items-start col-span-9 grid grid-cols-9 my-2">
                 <div className="col-span-3 font-medium">
-                  <p>{mockOrder.title}</p>
+                  <p>{router.query.type}</p>
                 </div>
                 <div className="col-span-3 text-end font-medium">
-                  <p>{mockOrder.price}</p>
+                  <p>{router.query.price}</p>
                 </div>
                 <div className="col-span-3 items-end text-end font-medium">
-                  {mockOrder.quantity}
+                  {router.query.quantity}
                 </div>
               </div>
               <hr className="col-span-9 my-4"></hr>
@@ -74,9 +77,7 @@ const Checkout = () => {
                 <p className="font-medium text-xl">Total</p>
               </div>
               <div className="col-span-2 text-end">
-                <p className="font-medium text-xl">
-                  {mockOrder.price * mockOrder.quantity} THB
-                </p>
+                <p className="font-medium text-xl">{router.query.price} THB</p>
               </div>
             </div>
           </div>
@@ -225,6 +226,4 @@ const Checkout = () => {
       </div>
     </>
   );
-};
-
-export default Checkout;
+}

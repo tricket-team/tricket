@@ -19,6 +19,8 @@
     </properties>
 
     <modules>
-    <module>packages/api-authentication</module><module>packages/api-authentication</module><module>packages/api-event</module></modules>
+      <module>packages/api-authentication</module>
+      <module>packages/api-event</module>
+    </modules>
 
 </project>

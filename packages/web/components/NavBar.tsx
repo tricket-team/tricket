@@ -9,15 +9,23 @@ const NavBar = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    if (!auth.currentUser) Router.push('/sign-in');
-    setUser(auth.currentUser);
-  });
+  // useEffect(() => {
+  //   if (!auth.currentUser) Router.push('/sign-in');
+  //   setUser(auth.currentUser);
+  // });
 
   const signOut = async () => {
     await auth.signOut();
     setUser(null);
   };
+
+  const path = [
+    '/event',
+    '/sign-in',
+    '/sign-up',
+    '/event/createTicket',
+    '/event/create',
+  ];
 
   return (
     <>
@@ -28,7 +36,7 @@ const NavBar = () => {
               <Link href={'/event'}>
                 <Image
                   src={
-                    router.pathname === '/event'
+                    path.includes(router.pathname)
                       ? '/img/tricket.svg'
                       : '/img/tricket-white.svg'
                   }
@@ -39,7 +47,9 @@ const NavBar = () => {
               </Link>
               <div
                 className={`${
-                  router.pathname === '/event' ? 'text-[#24475B]' : 'text-white'
+                  path.includes(router.pathname)
+                    ? 'text-[#24475B]'
+                    : 'text-white'
                 } font-semibold flex gap-x-10 items-center`}
               >
                 <Link href={'/event'}>Home</Link>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Navbar from '../../../../components/NavBar';
-import { eventDetailDummy, TicketType } from '../../../../data';
+import { TicketType } from '../../../../data';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Footer } from '../../../../components';
@@ -9,22 +9,33 @@ import Link from 'next/link';
 
 function Detail() {
   const router = useRouter();
+  const eventId = router.query.id;
 
-  const [ticketData, setTicketData] = useState({
+  const [ticketData, setTicketData] = useState<TicketType>({
     title: '',
-    type: '',
-    quantity: 0,
+    date: '',
     price: 0,
+    quantity: 0,
   });
 
   function TicketHanler(num, seat: string, price) {
     setTicketData({
-      title: eventDetailDummy.title,
-      type: seat,
+      title: seat,
+      date: '',
       quantity: num,
       price: price,
     });
   }
+
+  const getTicket = async (id: string) => {
+    await fetch(`http://localhost:9001/ticket/${id}`).then(async (response) => {
+      setTicketData(await response.json());
+    });
+  };
+
+  useState(() => {
+    getTicket(eventId);
+  });
 
   return (
     <>
@@ -63,7 +74,7 @@ function Detail() {
               </div>
               <div className="bg-[#1D1D1D] rounded-lg col-span-4 w-full h-20 flex items-center justify-center flex-col">
                 <p className="font-semibold">{router.query.startTime}</p>
-                <p>{eventDetailDummy.location}</p>
+                <p>{router.query.address}</p>
               </div>
             </div>
             <div className="grid grid-cols-10 gap-4 mt-16">
@@ -95,63 +106,59 @@ function Detail() {
               <p>Qty.</p>
             </div>
             <hr className="col-span-9 my-4"></hr>
-            {eventDetailDummy.ticket.map((item: TicketType, i: number) => (
-              <div
-                className="justify-between items-start col-span-9 grid grid-cols-9 my-2"
-                key={i}
-              >
-                <div className="col-span-3 font-medium">
-                  <p>{item.title}</p>
-                </div>
-                <div className="col-span-3 text-end font-medium">
-                  <p>{item.price}</p>
-                </div>
-                <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
-                  <div className="col-start-4">
-                    {!ticketData.quantity || ticketData.type === item.title ? (
-                      <select
-                        defaultValue={'Select'}
-                        className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
-                        onChange={(e) => {
-                          if (e.target.value === '0') {
-                            TicketHanler(0, '', 0);
-                          } else {
-                            TicketHanler(1, item.title, item.price);
-                          }
-                        }}
-                      >
-                        <option className="text-center" value={0}>
-                          0
-                        </option>
-                        <option className="text-center" value={1}>
-                          1
-                        </option>
-                      </select>
-                    ) : (
-                      <select
-                        disabled
-                        defaultValue={'Select'}
-                        className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
-                        onChange={(e) => {
-                          if (e.target.value === '0') {
-                            TicketHanler(0, '', 0);
-                          } else {
-                            TicketHanler(1, item.title, item.price);
-                          }
-                        }}
-                      >
-                        <option className="text-center" value={0}>
-                          0
-                        </option>
-                        <option className="text-center" value={1}>
-                          1
-                        </option>
-                      </select>
-                    )}
-                  </div>
+            <div className="justify-between items-start col-span-9 grid grid-cols-9 my-2">
+              <div className="col-span-3 font-medium">
+                <p>{ticketData.title}</p>
+              </div>
+              <div className="col-span-3 text-end font-medium">
+                <p>{ticketData.price}</p>
+              </div>
+              <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
+                <div className="col-start-4">
+                  {!ticketData.quantity ||
+                  ticketData.title === ticketData.title ? (
+                    <select
+                      defaultValue={'Select'}
+                      className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
+                      onChange={(e) => {
+                        if (e.target.value === '0') {
+                          TicketHanler(0, '', 0);
+                        } else {
+                          TicketHanler(1, ticketData.title, ticketData.price);
+                        }
+                      }}
+                    >
+                      <option className="text-center" value={0}>
+                        0
+                      </option>
+                      <option className="text-center" value={1}>
+                        1
+                      </option>
+                    </select>
+                  ) : (
+                    <select
+                      disabled
+                      defaultValue={'Select'}
+                      className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
+                      onChange={(e) => {
+                        if (e.target.value === '0') {
+                          TicketHanler(0, '', 0);
+                        } else {
+                          TicketHanler(1, ticketData.title, ticketData.price);
+                        }
+                      }}
+                    >
+                      <option className="text-center" value={0}>
+                        0
+                      </option>
+                      <option className="text-center" value={1}>
+                        1
+                      </option>
+                    </select>
+                  )}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
         <Link

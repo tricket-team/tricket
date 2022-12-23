@@ -100,14 +100,9 @@ export type EventDetailType = {
 
 export type TicketType = {
   title: string;
+  date: string;
   price: number;
   quantity: number;
-};
-
-export const mockOrder: TicketType = {
-  title: "Gun N' Rose",
-  price: 5000,
-  quantity: 3,
 };
 
 export const eventDetailDummy: EventDetailType = {

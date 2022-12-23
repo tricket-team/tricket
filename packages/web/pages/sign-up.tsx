@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 function SignUp() {
+  const router = useRouter();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDay, setBirthDay] = useState('');
@@ -18,6 +22,59 @@ function SignUp() {
   function toggleConfirmPassword() {
     setConfirmPasswordShown(!confirmPasswordShown);
   }
+
+  const postCreateUser = async () => {
+    // const formData = new FormData();
+    // formData.append('firstName', firstName);
+    // formData.append('lastName', lastName);
+    // formData.append('email', email);
+    // formData.append('password', password);
+    // formData.append('birthDate', birthDay);
+    // formData.append('phoneNumber', '+66' + parseInt(phoneNumber));
+
+    // await fetch('http://localhost:9000/sign-up', {
+    //   headers: { 'content-type': 'application/json' },
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    //   .then((response) => {
+    //     response.json();
+    //     router.push('/sign-in');
+    //   })
+    //   .finally(() => {
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: `Create account successful`,
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
+    //   });
+    const userData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      birthDate: birthDay,
+      phoneNumber: phoneNumber,
+    };
+    await fetch('http://localhost:9000/sign-up', {
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify(userData),
+    })
+      .then((response) => {
+        response.json();
+      })
+      .finally(() => {
+        Swal.fire({
+          icon: 'success',
+          title: `Create account successful`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        router.push('/sign-in');
+      });
+  };
 
   return (
     <>
@@ -205,7 +262,10 @@ function SignUp() {
             </div>
           </div>
           <div className="flex justify-center px-6 pb-2 items-center">
-            <button className="rounded w-full bg-[#4EE191] hover:bg-opacity-70 transition text-white py-3 font-semibold">
+            <button
+              onClick={postCreateUser}
+              className="rounded w-full bg-[#4EE191] hover:bg-opacity-70 transition text-white py-3 font-semibold"
+            >
               Sign up
             </button>
           </div>

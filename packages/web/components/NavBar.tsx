@@ -55,6 +55,7 @@ const NavBar = () => {
                 {user ? (
                   <div className="flex gap-x-10 items-center">
                     <p className="font-semibold">{user.displayName}</p>
+                    <Link href={'/event/create'}>Create New Event</Link>
                     <button onClick={signOut}>Sign out</button>
                   </div>
                 ) : (

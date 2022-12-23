@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {
@@ -12,7 +15,7 @@ public class TicketController {
     private TicketService service;
 
     @GetMapping("/{eventId}")
-    public ResponseEntity<TicketEntity[]> getTicketByEventId(@PathVariable String eventId) {
+    public ResponseEntity<List<TicketEntity>> getTicketByEventId(@PathVariable String eventId) {
         return this.service.getTicketsByEventId(eventId);
     }
 

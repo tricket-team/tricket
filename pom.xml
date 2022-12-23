@@ -21,6 +21,6 @@
     <modules>
       <module>packages/api-authentication</module>
       <module>packages/api-event</module>
-    </modules>
+    <module>packages/api-payment</module></modules>
 
 </project>

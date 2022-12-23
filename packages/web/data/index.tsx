@@ -1,3 +1,24 @@
+export type EventType = {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  startTime: string;
+  endTime: string;
+  slug: string;
+  type: string;
+  venueId: string;
+  venue: VenueType;
+};
+
+type VenueType = {
+  id: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  address: string;
+};
+
 export type data = {
   img: string;
   date: string;
@@ -79,14 +100,9 @@ export type EventDetailType = {
 
 export type TicketType = {
   title: string;
+  date: string;
   price: number;
   quantity: number;
-};
-
-export const mockOrder: TicketType = {
-  title: "Gun N' Rose",
-  price: 5000,
-  quantity: 3,
 };
 
 export const eventDetailDummy: EventDetailType = {
@@ -113,3 +129,10 @@ export enum createEvent {
   'add date and location',
   'upload cover image',
 }
+
+export enum createTicketState {
+  'ticket type qty',
+  'create ticket',
+}
+
+export const EventType = ['Concert', 'Talk Show', 'Festival', 'Meeting'];

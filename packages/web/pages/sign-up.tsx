@@ -30,7 +30,7 @@ function SignUp() {
     formData.append('email', email);
     formData.append('password', password);
     formData.append('birthDate', birthDay);
-    formData.append('phoneNumber', phoneNumber);
+    formData.append('phoneNumber', '+66' + parseInt(phoneNumber));
 
     await fetch('http://localhost:9000/sign-up', {
       headers: { 'content-type': 'application/json' },
@@ -44,7 +44,7 @@ function SignUp() {
       .finally(() => {
         Swal.fire({
           icon: 'success',
-          title: `Created account successful`,
+          title: `Create account successful`,
           showConfirmButton: false,
           timer: 2000,
         });

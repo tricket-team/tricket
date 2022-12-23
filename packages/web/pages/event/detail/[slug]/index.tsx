@@ -1,4 +1,4 @@
-import React, { use, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Navbar from '../../../../components/NavBar';
 import { eventDetailDummy, TicketType } from '../../../../data';
@@ -7,34 +7,16 @@ import { useState } from 'react';
 import { Footer } from '../../../../components';
 import Link from 'next/link';
 
-// function Ticket(item: TicketType) {
-//   const getTicket = [];
-//   for (let i = 0; i <= item.quantity; i++) {
-//     getTicket.push(i);
-//   }
-//   return getTicket.map((num) => (
-//     <option className="text-center" value={num} key={num}>
-//       {num}
-//     </option>
-//   ));
-// }
 function Detail() {
   const router = useRouter();
-  const slug = router.query.slug as string;
-  useState(() => {
-    fetch('');
-  });
+
   const [ticketData, setTicketData] = useState({
     title: '',
     type: '',
     quantity: 0,
     price: 0,
   });
-  function buy() {}
-  useEffect(() => {
-    console.log(router.query);
-    console.log(ticketData);
-  });
+
   function TicketHanler(num, seat: string, price) {
     setTicketData({
       title: eventDetailDummy.title,

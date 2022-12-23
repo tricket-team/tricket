@@ -7,12 +7,13 @@ import { useRouter } from 'next/router';
 
 const CreateEvent = () => {
   const router = useRouter();
+  const [postData, setPostData] = useState({});
   const [step, setStep] = useState<createEvent>(createEvent['add title']);
   const [title, setTitle] = useState('');
   const [eventType, setEventType] = useState('');
   const [country, setCountry] = useState('');
   const [description, setDescription] = useState('');
-  const [state, setState] = useState('');
+  const [stateLocation, setState] = useState('');
   const [postCode, setPostcode] = useState('');
   const [address, setAddress] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -49,7 +50,7 @@ const CreateEvent = () => {
     formData.append('type', eventType);
     formData.append('description', description);
     formData.append('country', country);
-    formData.append('state', state);
+    formData.append('state', stateLocation);
     formData.append('postalCode', postCode);
     formData.append('address', address);
     formData.append('slug', title.toLowerCase().split(' ').join('-'));
@@ -63,16 +64,24 @@ const CreateEvent = () => {
     })
       .then((response) => {
         response.json();
+        setPostData(response.json());
         Swal.fire({
           icon: 'success',
           title: `Created ${title} event`,
           text: "Let's place the ticket to sell!",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
       })
-      .catch((e) => console.log(e))
-      .finally(() => router.push('/event/createTicket'));
+      .then(() => {
+        router.push({
+          pathname: '/event/createTicket',
+          state: {
+            id: postData.id,
+          },
+        });
+      })
+      .catch((e) => console.log(e));
   };
 
   return (

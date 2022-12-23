@@ -9,17 +9,19 @@ import Link from 'next/link';
 
 function Detail() {
   const router = useRouter();
-  const eventId = router.query.id;
+  const { id, slug, image, title, startTime, description, address } =
+    router.query;
 
-  const [ticketData, setTicketData] = useState<TicketType>({
+  const [ticketData, setTicketData] = useState<fetchTicket>({
     title: '',
     date: '',
     price: 0,
-    quantity: 0,
   });
 
+  const [ticketWithQty, setTicketWithQty] = useState<TicketType>();
+
   function TicketHanler(num, seat: string, price) {
-    setTicketData({
+    setTicketWithQty({
       title: seat,
       date: '',
       quantity: num,
@@ -27,15 +29,19 @@ function Detail() {
     });
   }
 
+  type fetchTicket = {
+    title: string;
+    date: string;
+    price: number;
+  };
+
   const getTicket = async (id: string) => {
     await fetch(`http://localhost:9001/ticket/${id}`).then(async (response) => {
-      setTicketData(await response.json());
+      setTicketData((await response.json()) as fetchTicket);
     });
   };
 
-  useState(() => {
-    getTicket(eventId);
-  });
+  useState(() => getTicket(id));
 
   return (
     <>
@@ -43,7 +49,7 @@ function Detail() {
       <div className="grid grid-cols-12 mb-10">
         <div className="col-span-12">
           <Image
-            src={router.query.image}
+            src={image}
             width={1920}
             height={300}
             alt="gun_n_roses"
@@ -53,16 +59,16 @@ function Detail() {
         <div className="justify-center col-start-2 col-span-10 -mt-[550px] z-10">
           <div className="grid grid-cols-10 text-white">
             <span className="col-span-6 text-[96px] font-semibold">
-              {router.query.title}
+              {title}
             </span>
             <div className="col-end-10 bg-white w-1"></div>
             <span className="col-end-11 text-right self-end font-semibold">
-              {router.query.venue}
+              {address}
             </span>
           </div>
           <div className="grid-rows-2 mt-[60px]">
             <Image
-              src={router.query.image}
+              src={image}
               width={1600}
               height={300}
               alt="gun_n_roses"
@@ -70,17 +76,19 @@ function Detail() {
             />
             <div className="grid grid-cols-10 gap-4 mt-16 text-white">
               <div className="bg-[#1D1D1D] rounded-lg col-span-6 w-full h-20 flex items-center justify-center flex-col">
-                <p className="font-semibold font-lg">{router.query.title}</p>
+                <p className="font-semibold font-lg">{title}</p>
               </div>
               <div className="bg-[#1D1D1D] rounded-lg col-span-4 w-full h-20 flex items-center justify-center flex-col">
-                <p className="font-semibold">{router.query.startTime}</p>
-                <p>{router.query.address}</p>
+                <p className="font-semibold">
+                  {startTime.length > 10 ? startTime.slice(0, 10) : startTime}
+                </p>
+                <p>{address}</p>
               </div>
             </div>
             <div className="grid grid-cols-10 gap-4 mt-16">
               <div className="col-span-5">
                 <Image
-                  src={router.query.image}
+                  src={image}
                   width={1600}
                   height={300}
                   alt="gun_n_roses"
@@ -89,7 +97,7 @@ function Detail() {
               </div>
               <div className="col-span-5 pl-5">
                 <p className="font-semibold text-[24px]">Event Description</p>
-                <p className="mt-5 text-lg">{router.query.description}</p>
+                <p className="mt-5 text-lg">{description}</p>
               </div>
             </div>
           </div>
@@ -115,8 +123,7 @@ function Detail() {
               </div>
               <div className="col-span-3 items-end text-end font-medium grid grid-cols-4">
                 <div className="col-start-4">
-                  {!ticketData.quantity ||
-                  ticketData.title === ticketData.title ? (
+                  {ticketData.title === ticketData.title ? (
                     <select
                       defaultValue={'Select'}
                       className="bg-[#1E1E1E] hover:bg-[#1E1E1E]/70 border-2 border-white/20 rounded w-10"
@@ -165,12 +172,9 @@ function Detail() {
           className="col-start-2 col-end-12 text-center bg-[#1E1E1E] py-4 text-white rounded-md font-semibold"
           href={{
             pathname: `/checkout/[title]`,
-            query: ticketData,
+            query: ticketWithQty,
           }}
-          as={`/checkout/${ticketData.title
-            .toLowerCase()
-            .split(' ')
-            .join('-')}`}
+          as={`/checkout/${slug}`}
         >
           <button>Buy Ticket</button>
         </Link>

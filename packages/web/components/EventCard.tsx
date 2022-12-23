@@ -19,7 +19,15 @@ const EventCard = () => {
           <Link
             href={{
               pathname: `/event/detail/[slug]`,
-              query: item,
+              query: {
+                id: item.id,
+                slug: item.slug,
+                image: item.image,
+                title: item.title,
+                startTime: item.startTime,
+                description: item.description,
+                address: item.venue.address,
+              },
             }}
             as={`/event/detail/${item.slug.toLowerCase().split(' ').join('-')}`}
             key={i}

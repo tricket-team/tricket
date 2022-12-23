@@ -73,6 +73,7 @@ const CreateEvent = () => {
           text: "Let's place the ticket to sell!",
           showConfirmButton: false,
           timer: 2000,
+          html: ``,
         });
         router.push(`/event/create/ticket/${postData?.id}`);
       });

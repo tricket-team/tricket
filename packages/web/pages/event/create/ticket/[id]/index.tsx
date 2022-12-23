@@ -13,7 +13,9 @@ const CreateTicket = () => {
   const [ticketTitle, setTicketTitle] = useState('');
   const [ticketDate, setTicketDate] = useState('');
   const [ticketPrice, setTicketPrice] = useState(0);
+  // const [ticketData, setTicketData] = useState({
 
+  // })
   function Ticket(ticketTypeQty: number) {
     const getTicket = [];
     for (let i = 1; i <= ticketTypeQty - 1; i++) {
@@ -74,28 +76,48 @@ const CreateTicket = () => {
   };
 
   const postCreateTicket = async () => {
-    const formData = new FormData();
-    for (let i = 1; i < ticketTypeQty; i++) {
-      formData.append('title', ticketTitle);
-      formData.append('date', ticketDate);
-      formData.append('price', ticketPrice);
-    }
-
-    await fetch(`http://localhost:9000/ticket/create/${router.query.id}`, {
+    // const formData = new FormData();
+    // for (let i = 1; i < ticketTypeQty; i++) {
+    //   formData.append('title', ticketTitle);
+    //   formData.append('date', ticketDate);
+    //   formData.append('price', ticketPrice);
+    // }
+    // await fetch(`http://localhost:9000/ticket/create/${router.query.id}`, {
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    //   .then((response) => {
+    //     response.json();
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: `Created ${ticketTypeQty} tickets`,
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //     });
+    //   })
+    //   .catch((e) => console.log(e))
+    //   .finally(() => router.push('/event'));
+    const ticketData = {
+      title: ticketTitle,
+      Date: ticketDate,
+      price: ticketPrice,
+    };
+    await fetch(`http://localhost:9001/ticket/create/${router.query.id}`, {
       method: 'POST',
-      body: formData,
+      body: JSON.stringify(ticketData),
     })
       .then((response) => {
         response.json();
+      })
+      .finally(() => {
         Swal.fire({
           icon: 'success',
-          title: `Created ${ticketTypeQty} tickets`,
+          title: `Create ticket successful`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
-      })
-      .catch((e) => console.log(e))
-      .finally(() => router.push('/event'));
+        router.push('/event');
+      });
   };
 
   return (

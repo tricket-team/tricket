@@ -14,7 +14,7 @@ const EventCard = () => {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="grid grid-cols-5 justify-between">
         {event.map((item: EventType, i: number) => (
           <Link
             href={{
@@ -47,7 +47,11 @@ const EventCard = () => {
                   </svg>
                 </div>
               </div>
-              <p className="text-gray-400 text-sm">{item.startTime}</p>
+              <p className="text-gray-400 text-sm">
+                {item.startTime.length > 10
+                  ? item.startTime.slice(0, 10)
+                  : item.startTime}
+              </p>
               <p className="font-semibold text-lg">{item.title}</p>
               <div className="flex gap-x-1 items-center text-gray-400 text-sm">
                 <svg

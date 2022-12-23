@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const CreateEvent = () => {
   const router = useRouter();
-  const [postData, setPostData] = useState<EventType[]>([]);
+  const [postData, setPostData] = useState<EventType>();
   const [step, setStep] = useState<createEvent>(createEvent['add title']);
   const [title, setTitle] = useState('');
   const [eventType, setEventType] = useState('');
@@ -48,7 +48,7 @@ const CreateEvent = () => {
   const getAllEvent = async (slug: string) => {
     await fetch(`http://localhost:9001/event/slug/${slug}`).then(
       async (response) => {
-        setPostData((await response.json()) as EventType[]);
+        setPostData((await response.json()) as EventType);
       }
     );
   };
@@ -77,9 +77,6 @@ const CreateEvent = () => {
       })
       .catch((e) => console.log(e))
       .finally(() => {
-        console.log(imageFile);
-
-        console.log(postData);
         Swal.fire({
           icon: 'success',
           title: `Created ${title} event`,

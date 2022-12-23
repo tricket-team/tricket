@@ -24,26 +24,26 @@ public class PaymentQueryConsumer {
         return this.buyTicketRepository.findBuyTicketByTicketId(ticketId);
     }
 
-    @RabbitListener(queues = "getBuyTicketByEventQueue")
-    public List<BuyTicketEntity> getBuyTicketByEventId(String eventId) {
-        ManagedChannel channel = ManagedChannelBuilder
-            .forAddress("localhost", 50052)
-            .usePlaintext()
-            .build();
-        TicketEventGrpc.TicketEventBlockingStub client = TicketEventGrpc.newBlockingStub(channel);
-        TicketEventRequest request = TicketEventRequest.newBuilder()
-            .setEventId(eventId)
-            .build();
-        TicketEventResponse response = client.getEventTickets(request);
-
-        List<BuyTicketEntity> buyTicketList = new ArrayList<>();
-
-        for (String ticket : response.getTicketsList()) {
-            for (BuyTicketEntity responseTicket : this.getBuyTicket(ticket)) {
-                buyTicketList.add(responseTicket);
-            }
-        }
-
-        return buyTicketList;
-    }
+//    @RabbitListener(queues = "getBuyTicketByEventQueue")
+//    public List<BuyTicketEntity> getBuyTicketByEventId(String eventId) {
+//        ManagedChannel channel = ManagedChannelBuilder
+//            .forAddress("localhost", 50052)
+//            .usePlaintext()
+//            .build();
+//        TicketEventGrpc.TicketEventBlockingStub client = TicketEventGrpc.newBlockingStub(channel);
+//        TicketEventRequest request = TicketEventRequest.newBuilder()
+//            .setEventId(eventId)
+//            .build();
+//        TicketEventResponse response = client.getEventTickets(request);
+//
+//        List<BuyTicketEntity> buyTicketList = new ArrayList<>();
+//
+//        for (String ticket : response.getTicketsList()) {
+//            for (BuyTicketEntity responseTicket : this.getBuyTicket(ticket)) {
+//                buyTicketList.add(responseTicket);
+//            }
+//        }
+//
+//        return buyTicketList;
+//    }
 }

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "co.tricket";
+option java_multiple_files = true;
+
+message TicketEventRequest {
+  string eventId = 1;
+}
+
+message TicketEventResponse {
+  repeated string tickets = 1;
+}
+
+service TicketEvent {
+  rpc GetEventTickets(TicketEventRequest) returns (TicketEventResponse) {};
+}

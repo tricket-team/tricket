@@ -154,7 +154,7 @@ function SignIn() {
               <div className="col-span-1"></div>
               <div className="col-span-1"></div>
               <div className="col-span-1">
-                <a href="">
+                <Link href="/forgot-password">
                   <p className="text-green-500 flex gap-x-2 justify-end">
                     <span>
                       <svg
@@ -174,7 +174,7 @@ function SignIn() {
                     </span>
                     Forgot Password
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

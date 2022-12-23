@@ -1,9 +1,26 @@
 import NavBar from '../components/NavBar';
 import React, { useState } from 'react';
 import Link from 'next/link';
-
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 function ForgotPassword() {
+  const route = useRouter();
   const [email, setEmail] = useState('');
+  const triggerResetEmail = async () => {
+    await sendPasswordResetEmail(auth, email).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Password reset email sent',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        route.push('sign-in');
+      });
+    });
+    console.log('Password reset email sent');
+  };
   return (
     <>
       <NavBar />
@@ -54,7 +71,10 @@ function ForgotPassword() {
             </div>
           </div>
           <div className="flex justify-center px-6 pb-2 items-center">
-            <button className="rounded w-full bg-[#4EE191] hover:bg-opacity-70 transition text-white py-3 font-semibold">
+            <button
+              onClick={triggerResetEmail}
+              className="rounded w-full bg-[#4EE191] hover:bg-opacity-70 transition text-white py-3 font-semibold"
+            >
               Reset Password
             </button>
           </div>

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const CreateEvent = () => {
   const router = useRouter();
-  const [postData, setPostData] = useState({});
+  const [postData, setPostData] = useState<EventType[]>([]);
   const [step, setStep] = useState<createEvent>(createEvent['add title']);
   const [title, setTitle] = useState('');
   const [eventType, setEventType] = useState('');
@@ -45,6 +45,14 @@ const CreateEvent = () => {
     }
   };
 
+  const getAllEvent = async (slug: string) => {
+    await fetch(`http://localhost:9001/event/slug/${slug}`).then(
+      async (response) => {
+        setPostData((await response.json()) as EventType[]);
+      }
+    );
+  };
+
   const postCreateEvent = async () => {
     const formData = new FormData();
     formData.append('title', title);
@@ -64,23 +72,20 @@ const CreateEvent = () => {
       body: formData,
     })
       .then(async (response) => {
-        setPostData(await response.json());
+        response.json();
+        getAllEvent(title.toLowerCase().split(' ').join('-'));
       })
       .then(() => {
         Swal.fire({
           icon: 'success',
           title: `Created ${title} event`,
           text: "Let's place the ticket to sell!",
-          html: `${(
-            <Link
-              href={{ pathname: '/event/create/ticket/[id]' }}
-              as={`/event/create/ticket/${postData.id}`}
-            >
+          html: `
+            <a href={'/event/create/ticket/${postData[0].id}'}>
               <button className="my-4 bg-slate-200 py-1 px-4 font-semibold">
                 Create ticket
               </button>
-            </Link>
-          )}`,
+            </a>`,
           showConfirmButton: false,
           //timer: 20000,
         });

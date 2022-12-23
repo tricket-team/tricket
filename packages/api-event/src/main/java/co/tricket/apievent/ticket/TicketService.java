@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -13,7 +14,7 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    public ResponseEntity<TicketEntity[]> getTicketsByEventId(String eventId) {
+    public ResponseEntity<List<TicketEntity>> getTicketsByEventId(String eventId) {
         return ResponseEntity.ok(this.ticketRepository.getTicketByEventId(eventId));
     }
 

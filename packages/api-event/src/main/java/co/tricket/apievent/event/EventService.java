@@ -143,4 +143,8 @@ public class EventService {
     public void deleteVenue(String venueId) {
         this.venueRepository.deleteById(venueId);
     }
+
+    public ResponseEntity<EventEntity> getEventBySlug(String slug) {
+        return ResponseEntity.ok(this.eventRepository.findEventBySlug(slug));
+    }
 }

@@ -22,6 +22,7 @@ public class EventEntity implements Serializable {
     private String id;
     private String title;
     private String image;
+    @Lob
     private String description;
     private String startTime;
     private String endTime;

@@ -4,7 +4,6 @@ import { NavBar, Footer } from '../../../components';
 import { createEvent, EventType } from '../../../data';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 const CreateEvent = () => {
   const router = useRouter();
@@ -45,14 +44,6 @@ const CreateEvent = () => {
     }
   };
 
-  const getAllEvent = async (slug: string) => {
-    await fetch(`http://localhost:9001/event/slug/${slug}`).then(
-      async (response) => {
-        setPostData((await response.json()) as EventType);
-      }
-    );
-  };
-
   const postCreateEvent = async () => {
     const formData = new FormData();
     formData.append('title', title);
@@ -72,8 +63,7 @@ const CreateEvent = () => {
       body: formData,
     })
       .then(async (response) => {
-        response.json();
-        getAllEvent(title.toLowerCase().split(' ').join('-'));
+        setPostData((await response.json()) as EventType);
       })
       .catch((e) => console.log(e))
       .finally(() => {
@@ -81,18 +71,9 @@ const CreateEvent = () => {
           icon: 'success',
           title: `Created ${title} event`,
           text: "Let's place the ticket to sell!",
-          html: `${(
-            <Link
-              href={{ pathname: '/event/create/ticket/[id]' }}
-              as={`/event/create/ticket/${postData[0].id}`}
-            >
-              <button className="my-4 bg-slate-200 py-1 px-4 font-semibold">
-                Create ticket
-              </button>
-            </Link>
-          )}`,
           showConfirmButton: false,
         });
+        router.push(`/event/create/ticket/${postData?.id}`);
       });
   };
 

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/event")
 public class EventController {
@@ -40,5 +41,10 @@ public class EventController {
     @DeleteMapping("/{eventId}")
     public void deleteEvent(@PathVariable String eventId) {
         this.eventService.deleteEventAndVenue(eventId);
+    }
+
+    @GetMapping("/slug/{slug}")
+    public ResponseEntity<EventEntity> getEventBySlug(@PathVariable String slug) {
+        return this.eventService.getEventBySlug(slug);
     }
 }

@@ -19,8 +19,8 @@ public class PaymentQueryController {
         return (List<BuyTicketEntity>) rabbit.convertSendAndReceive("APIPaymentDirect", "getTicket", ticketId);
     }
 
-    @GetMapping("/event/{eventId}")
-    public List<BuyTicketEntity> getBuyTicketByEventId(@PathVariable String eventId) {
-        return null;
-    }
+//    @GetMapping("/event/{eventId}")
+//    public List<BuyTicketEntity> getBuyTicketByEventId(@PathVariable String eventId) {
+//        return (List<BuyTicketEntity>) rabbit.convertSendAndReceive("APIPaymentDirect", "getTicketByEvent", eventId);
+//    }
 }

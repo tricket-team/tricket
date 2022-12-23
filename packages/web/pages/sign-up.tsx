@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import { json } from 'stream/consumers';
+import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 function SignUp() {
+  const router = useRouter();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDay, setBirthDay] = useState('');
@@ -21,21 +24,31 @@ function SignUp() {
   }
 
   const postCreateUser = async () => {
-    const userData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      birthDate: birthDay,
-      phoneNumber: phoneNumber,
-    };
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('birthDate', birthDay);
+    formData.append('phoneNumber', phoneNumber);
+
     await fetch('http://localhost:9000/sign-up', {
       headers: { 'content-type': 'application/json' },
       method: 'POST',
-      body: JSON.stringify(userData),
-    }).then((response) => {
-      response.json();
-    });
+      body: formData,
+    })
+      .then((response) => {
+        response.json();
+        router.push('/sign-in');
+      })
+      .finally(() => {
+        Swal.fire({
+          icon: 'success',
+          title: `Created account successful`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      });
   };
 
   return (

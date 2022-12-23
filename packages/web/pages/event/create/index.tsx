@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const CreateEvent = () => {
   const router = useRouter();
-  const [postData, setPostData] = useState({});
+  const [postData, setPostData] = useState([]);
   const [step, setStep] = useState<createEvent>(createEvent['add title']);
   const [title, setTitle] = useState('');
   const [eventType, setEventType] = useState('');
@@ -19,7 +19,7 @@ const CreateEvent = () => {
   const [address, setAddress] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [imageFile, setImageFile] = useState(Object);
+  const [imageFile, setImageFile] = useState('');
 
   const shiftStepForward = (currentStep: createEvent) => {
     const current = currentStep.toString();
@@ -59,14 +59,21 @@ const CreateEvent = () => {
     formData.append('endTime', endDate);
     formData.append('image', imageFile);
 
-    await fetch('http://localhost:9000/event/create', {
+    await fetch('http://localhost:9001/event/create', {
       method: 'POST',
       body: formData,
     })
       .then(async (response) => {
-        setPostData(await response.json());
+        const box = [];
+        box.push(await response.json());
+        setPostData(box);
+        // setPostData(await response.json());
       })
-      .then(() => {
+      .catch((e) => console.log(e))
+      .finally(() => {
+        console.log(imageFile);
+
+        console.log(postData);
         Swal.fire({
           icon: 'success',
           title: `Created ${title} event`,
@@ -74,7 +81,7 @@ const CreateEvent = () => {
           html: `${(
             <Link
               href={{ pathname: '/event/create/ticket/[id]' }}
-              as={`/event/create/ticket/${postData.id}`}
+              as={`/event/create/ticket/${postData[0].id}`}
             >
               <button className="my-4 bg-slate-200 py-1 px-4 font-semibold">
                 Create ticket
@@ -82,11 +89,8 @@ const CreateEvent = () => {
             </Link>
           )}`,
           showConfirmButton: false,
-          //timer: 20000,
         });
-      })
-      .catch((e) => console.log(e));
-    // .finally(() => router.push(`/event/createTicket/${postData.id}`));
+      });
   };
 
   return (
@@ -265,7 +269,7 @@ const CreateEvent = () => {
                     name="filename"
                     className="mt-4"
                     onChange={(e) => {
-                      setImageFile(e.target);
+                      setImageFile(e.target.files[0]);
                     }}
                     required
                   />

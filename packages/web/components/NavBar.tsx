@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { auth } from '../config/firebase';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { User } from 'firebase/auth';
 
 const NavBar = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
-  // useEffect(() => {
-  //   if (!auth.currentUser) Router.push('/sign-in');
-  //   setUser(auth.currentUser);
-  // });
+  useEffect(() => {
+    setUser(auth.currentUser);
+  });
 
   const signOut = async () => {
     await auth.signOut();
@@ -23,7 +22,7 @@ const NavBar = () => {
     '/event',
     '/sign-in',
     '/sign-up',
-    '/event/createTicket',
+    '/event/create/ticket/:eventId',
     '/event/create',
   ];
 

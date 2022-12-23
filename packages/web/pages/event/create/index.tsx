@@ -4,6 +4,7 @@ import { NavBar, Footer } from '../../../components';
 import { createEvent, EventType } from '../../../data';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const CreateEvent = () => {
   const router = useRouter();
@@ -70,15 +71,22 @@ const CreateEvent = () => {
           icon: 'success',
           title: `Created ${title} event`,
           text: "Let's place the ticket to sell!",
-          // html: `<Link href={'/event/create/ticket/[id]'} as {'/event/detail/${postData.id}'}>
-          //   <button class="my-4 bg-slate-200 py-1 px-4 font-semibold">Create ticket</button>
-          // </Link>`,
+          html: `${(
+            <Link
+              href={{ pathname: '/event/create/ticket/[id]' }}
+              as={`/event/create/ticket/${postData.id}`}
+            >
+              <button className="my-4 bg-slate-200 py-1 px-4 font-semibold">
+                Create ticket
+              </button>
+            </Link>
+          )}`,
           showConfirmButton: false,
-          timer: 20000,
+          //timer: 20000,
         });
       })
-      .catch((e) => console.log(e))
-      .finally(() => router.push(`/event/createTicket/${postData.id}`));
+      .catch((e) => console.log(e));
+    // .finally(() => router.push(`/event/createTicket/${postData.id}`));
   };
 
   return (

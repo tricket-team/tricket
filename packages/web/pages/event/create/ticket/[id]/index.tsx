@@ -3,12 +3,9 @@ import { Footer, NavBar } from '../../../../../components';
 import { createTicketState } from '../../../../../data';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
-import { useLocation } from 'react-router-dom';
 
 const CreateTicket = () => {
   const router = useRouter();
-  const { state } = useLocation();
-  const { id } = state;
   const [step, setStep] = useState<createTicketState>(
     createTicketState['ticket type qty']
   );
@@ -84,7 +81,7 @@ const CreateTicket = () => {
       formData.append('price', ticketPrice);
     }
 
-    await fetch(`http://localhost:9000/ticket/create/${id}`, {
+    await fetch(`http://localhost:9000/ticket/create/${router.query.id}`, {
       method: 'POST',
       body: formData,
     })

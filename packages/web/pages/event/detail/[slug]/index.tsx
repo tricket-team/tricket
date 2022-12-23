@@ -80,7 +80,7 @@ function Detail() {
               </div>
               <div className="bg-[#1D1D1D] rounded-lg col-span-4 w-full h-20 flex items-center justify-center flex-col">
                 <p className="font-semibold">
-                  {startTime.length > 10 ? startTime.slice(0, 10) : startTime}
+                  {startTime?.length ? startTime.slice(0, 10) : startTime}
                 </p>
                 <p>{address}</p>
               </div>

@@ -24,22 +24,46 @@ function SignUp() {
   }
 
   const postCreateUser = async () => {
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('birthDate', birthDay);
-    formData.append('phoneNumber', '+66' + parseInt(phoneNumber));
+    // const formData = new FormData();
+    // formData.append('firstName', firstName);
+    // formData.append('lastName', lastName);
+    // formData.append('email', email);
+    // formData.append('password', password);
+    // formData.append('birthDate', birthDay);
+    // formData.append('phoneNumber', '+66' + parseInt(phoneNumber));
 
+    // await fetch('http://localhost:9000/sign-up', {
+    //   headers: { 'content-type': 'application/json' },
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    //   .then((response) => {
+    //     response.json();
+    //     router.push('/sign-in');
+    //   })
+    //   .finally(() => {
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: `Create account successful`,
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
+    //   });
+    const userData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      birthDate: birthDay,
+      phoneNumber: phoneNumber,
+    };
     await fetch('http://localhost:9000/sign-up', {
       headers: { 'content-type': 'application/json' },
       method: 'POST',
-      body: formData,
+      body: JSON.stringify(userData),
     })
       .then((response) => {
         response.json();
-        router.push('/sign-in');
       })
       .finally(() => {
         Swal.fire({
@@ -48,6 +72,7 @@ function SignUp() {
           showConfirmButton: false,
           timer: 2000,
         });
+        router.push('/sign-in');
       });
   };
 
